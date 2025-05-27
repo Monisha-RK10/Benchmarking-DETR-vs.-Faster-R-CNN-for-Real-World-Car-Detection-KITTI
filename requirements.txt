@@ -1,0 +1,16 @@
+# Core Deep Learning
+torch>=2.0.1
+torchvision>=0.15.2
+transformers>=4.40.1
+timm>=0.9.2  # Optional but useful with transformers
+
+# Detection
+supervision==0.3.0
+pycocotools>=2.0.6
+
+# Visualization & Utilities
+opencv-python
+matplotlib
+notebook
+tqdm
+pandas
