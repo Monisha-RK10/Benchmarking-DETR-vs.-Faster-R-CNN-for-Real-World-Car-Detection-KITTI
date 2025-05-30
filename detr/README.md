@@ -2,7 +2,7 @@
 
 This folder contains code for training DETR using PyTorch Lightning.
 
-- `model_wrapper.py`: Wraps Hugging Face's DETR model into a `pl.LightningModule`. Includes:
+- `model_wrapper_detr.py`: Wraps Hugging Face's DETR model into a `pl.LightningModule`. Includes:
   - `KITTIDatasetDETR` class for loading data with `DetrImageProcessor`
   - `collate_fn` for dynamic padding and batching
   - Supports differential learning rates: backbone (ResNet) vs. transformer
