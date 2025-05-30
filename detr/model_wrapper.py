@@ -2,7 +2,7 @@ import pytorch_lightning as pl
 from transformers import DetrForObjectDetection
 import torch
 
-# Step 5
+# Step 5 for DETR
 # Plugging the HuggingFace DETR model into the Lightning pipeline.
 # Example: Exposing the forward of the wrapped HuggingFace model.
 # Different learning rates to improve convergence and stability.
