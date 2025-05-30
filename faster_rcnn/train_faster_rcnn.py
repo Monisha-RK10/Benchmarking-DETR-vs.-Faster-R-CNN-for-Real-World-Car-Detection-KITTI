@@ -13,14 +13,14 @@ from dataset.kitti import FilteredKITTIDataset, collate_fn
 train_dataset = FilteredKITTIDataset(
     '/content/drive/MyDrive/faster r-cnn/train/images',
     '/content/drive/MyDrive/faster r-cnn/train/labels',
-    'train.txt',
+    'input/train.txt',
     #transforms = None
 )
 
 val_dataset = FilteredKITTIDataset(
     '/content/drive/MyDrive/faster r-cnn/train/images',
     '/content/drive/MyDrive/faster r-cnn/train/labels',
-    'val.txt'
+    'input/val.txt'
 )
 
 train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True, collate_fn=collate_fn)
