@@ -8,7 +8,7 @@ from torch.optim.lr_scheduler import StepLR
 # Dataset class and collate_fn imported from datasets/kitti.py
 from dataset.kitti import FilteredKITTIDataset, collate_fn
 
-# Step 5: Create dataset & dataloader for train & val
+# Step 5 for Faster R-CNN: Create dataset & dataloader for train & val
 
 train_dataset = FilteredKITTIDataset(
     '/content/drive/MyDrive/faster r-cnn/train/images',
@@ -26,7 +26,7 @@ val_dataset = FilteredKITTIDataset(
 train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True, collate_fn=collate_fn)
 val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, collate_fn=collate_fn)
 
-# Step 6: Load model, set number of classes, & change the layer accordingly
+# Step 6 for Faster R-CNN: Load model, set number of classes, & change the layer accordingly
 
 # Load pre-trained Faster R-CNN
 model = fasterrcnn_resnet50_fpn(pretrained=True)
