@@ -16,7 +16,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 val_dataset = FilteredKITTIDataset(
     '/content/drive/MyDrive/faster r-cnn/train/images',
     '/content/drive/MyDrive/faster r-cnn/train/labels',
-    'val.txt'
+    'input/val.txt'
 )
 val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, collate_fn=collate_fn)
 
