@@ -25,7 +25,7 @@ Used in: `faster-rcnn/train_faster_rcnn.py`
   - Loads images + raw annotations.
   - Uses HuggingFace `DetrImageProcessor` for resizing, normalization, and box formatting.
 
-- **`collate_fn_detr(batch, processor)`**:
+- **`collate_fn(batch, processor)`**:
   - Pads all images in a batch to the largest height and width.
   - Creates `pixel_mask` for attention masking in DETR.
 
