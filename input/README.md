@@ -11,3 +11,5 @@ This folder includes:
       --train_file input/train.txt \
       --val_file input/val.txt \
       --train_ratio 0.8
+
+- `train.txt & val.txt`: Text files listing image base names (without extension) used for training and validation splits, respectively.
