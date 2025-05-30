@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import torchvision.transforms.functional as F
 import os
 
+# Step 7: Evaluate faster r-cnn trained model on val loader
+
 # Dataset class and collate_fn imported from dataset/kitti.py
 from dataset.kitti import FilteredKITTIDataset, collate_fn
 
