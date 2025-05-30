@@ -11,7 +11,7 @@ from pytorch_lightning.loggers import TensorBoardLogger
 # Dataset class and collate_fn imported from datasets/kitti_detr.py
 from dataset.kitti_detr import KITTIDatasetDETR, collate_fn
 
-# Step 6: Load dataset & dataloader
+# Step 6 for DETR: Load dataset & dataloader
 # Set paths
 
 ANNOTATION_FILE_NAME = "_annotations.coco.json"
@@ -26,7 +26,7 @@ VAL_DATASET = KITTIDatasetDETR(image_directory_path=VAL_DIRECTORY,image_processo
 TRAIN_DATALOADER = DataLoader(dataset=TRAIN_DATASET, collate_fn=collate_fn, batch_size=4, shuffle=True)
 VAL_DATALOADER = DataLoader(dataset=VAL_DATASET, collate_fn=collate_fn, batch_size=4)
 
-# Step 7: Load model & image processor.
+# Step 7 for DETR: Load model & image processor.
 # Load both image processor & object detection model (they both must have the same model).
 # Image processor handles set of utilities for:
 # a) Preprocessing such as image resizing, normalization, padding, conversion to tensors, and
@@ -41,13 +41,13 @@ image_processor = DetrImageProcessor.from_pretrained(CHECKPOINT)
 model = DetrForObjectDetection.from_pretrained(CHECKPOINT)
 model.to(DEVICE)
 
-# Step 8: Load tensor board for tracking the model's progress.
+# Step 8 for DETR: Load tensor board for tracking the model's progress.
 
 %load_ext tensorboard
 %tensorboard --logdir lightning_logs/
 logger = TensorBoardLogger("lightning_logs", name="detr") # Set up TensorBoard logging for PyTorch Lightning.
 
-# Step 9: Training & evaluation.
+# Step 9 for DETR: Training & evaluation.
 # Train the model while ensuring reproducibility, tracking loss, & setting hyperparameters.
 
 # Reproducibility
@@ -86,7 +86,7 @@ trainer = Trainer(
 # Train
 trainer.fit(model)
 
-# Step 10: Save the model, processor, & weights.
+# Step 10 for DETR: Save the model, processor, & weights.
 
 MODEL_PATH_40_updated = "/content/drive/MyDrive/DETR/custom-model_40epochs_updated"
 model.model.save_pretrained(MODEL_PATH_40_updated)
