@@ -1,4 +1,4 @@
-### faster-rcnn/
+# faster-rcnn/
 
 - `train_faster_rcnn.py`: Trains a Faster R-CNN model on the KITTI 'Car' class dataset using the filtered dataset and train/val split.
 
