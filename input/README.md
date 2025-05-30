@@ -19,7 +19,7 @@ python input/split_kitti_dataset.py \
     --train_file input/train.txt \
     --val_file input/val.txt \
     --train_ratio 0.8
-
+```
 ### `train.txt & val.txt`
 - Lists of image base names (no extensions).
 - Used to filter dataset entries during training/validation.
