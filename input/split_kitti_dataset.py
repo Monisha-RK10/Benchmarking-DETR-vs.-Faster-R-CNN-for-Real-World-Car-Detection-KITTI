@@ -3,7 +3,7 @@ import random
 import argparse
 import logging
 
-# Step 3: Split train/val (80/20) randomly & save them (train.txt, val.txt) for reproducibility
+# Step 1: Split train/val (80/20) randomly & save them (train.txt, val.txt) for reproducibility
 
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
