@@ -26,10 +26,6 @@ val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, collate_fn=col
 model = fasterrcnn_resnet50_fpn(pretrained=False, num_classes=2)  # background + car
 model.load_state_dict(torch.load("/content/fasterrcnn_best1.pth"))
 model.to(device)
-model.eval()
-
-# Run evaluation
-evaluate(model, val_loader, device=device)
 
 # Visualization setup
 save_dir = '/content/result_faster_rcnn_conf_0.9'
