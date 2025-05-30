@@ -1,4 +1,4 @@
-# Step 1: Create a custom dataset class.
+# Step 2: Create a custom dataset class.
 # This step does the following:
 # Open image in PIL format, convert to RGB, and apply basic transform/toTensor.
 # Extract bbox, labels based on the class map.
@@ -77,7 +77,7 @@ class KITTIDataset(Dataset):
     def __len__(self):
         return len(self.image_files)
 
-# Step 2: Update collate function
+# Step 3: Update collate function
 # Faster R-CNN expects lists of targets, not a stacked tensor (PyTorch defaut).
 
 def collate_fn(batch):
