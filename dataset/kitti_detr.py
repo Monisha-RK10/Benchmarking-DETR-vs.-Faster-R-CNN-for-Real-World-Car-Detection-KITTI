@@ -12,7 +12,7 @@ from transformers import DetrForObjectDetection, DetrImageProcessor
 ANNOTATION_FILE_NAME = "_annotations.coco.json"
 
 # CocoDetection (parent), apply image processor
-class CocoDetection(torchvision.datasets.CocoDetection):
+class KITTIDatasetDETR(torchvision.datasets.CocoDetection):
     def __init__(self, image_directory_path: str, image_processor, train: bool = True):
         annotation_file_path = os.path.join(image_directory_path, ANNOTATION_FILE_NAME)
         super(CocoDetection, self).__init__(image_directory_path, annotation_file_path) # Parent class' constructor
