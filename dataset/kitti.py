@@ -79,11 +79,12 @@ class KITTIDataset(Dataset):
 
 # Step 2: Update collate function
 # Faster R-CNN expects lists of targets, not a stacked tensor (PyTorch defaut).
+
 def collate_fn(batch):
     return tuple(zip(*batch)) # tuple of images ->(img1, img2, ...),  tuple of targets -> (target1, target2, ...)
 
 # Step 4: Subclass FilteredKITTIDataset of KITTIDataset
-# This filters images based on image filenames in train.txt, val.txt
+# This filters images based on image filenames in train.txt, val.txt (check input folder)
 
 class FilteredKITTIDataset(KITTIDataset):
     def __init__(self, image_dir, label_dir, image_list_file, transforms=None):
