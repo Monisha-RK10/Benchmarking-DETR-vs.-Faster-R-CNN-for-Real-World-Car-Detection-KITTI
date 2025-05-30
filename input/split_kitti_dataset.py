@@ -3,6 +3,8 @@ import random
 import argparse
 import logging
 
+# Step 3: Split train/val (80/20) randomly & save them (train.txt, val.txt) for reproducibility
+
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
 def split_dataset(image_dir, train_path='train.txt', val_path='val.txt', train_ratio=0.8, seed=42):
