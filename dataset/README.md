@@ -1,14 +1,37 @@
-### dataset/
+# dataset/
 
-- `kitti.py`: Contains dataset classes and utility for loading the KITTI dataset for Faster R-CNN in PyTorch.
+This folder contains dataset loader implementations tailored for Faster R-CNN and DETR training using the KITTI dataset.
 
-  - `KITTIDataset`: Basic dataset loader.
-  - `FilteredKITTIDataset`: Loads images/labels based on IDs listed in `train.txt` or `val.txt`.
-  - `collate_fn`: Custom collate function to handle variable number of annotations.
+---
 
-- `kitti_detr.py`: Contains dataset classes and utility for loading the KITTI dataset for DETR in PyTorch.
+## `kitti.py` – For Faster R-CNN
 
-  - `CocoDetection': Parent class to load image file and raw annotations from JSON.
-  - 'custom class': Uses parent class to load raw data and DetrImageProcessor processor to prep for model.
-  - `collate_fn`: Custom collate function to pad the images to the largest H, W in the batch and creates a pixel mask.
+### Classes:
+- **`KITTIDataset`**: Loads full KITTI-style images and labels.
+- **`FilteredKITTIDataset`**: Loads only a subset defined by `train.txt` or `val.txt`.
+
+### Functions:
+- **`collate_fn`**: Handles batch collation with variable-length bounding boxes per image.
+
+Used in: `faster-rcnn/train_faster_rcnn.py`
+
+---
+
+## `kitti_detr.py` – For DETR
+
+### Components:
+- **`CocoDetection`**:
+  - Inherits from `torchvision.datasets.CocoDetection`.
+  - Loads images + raw annotations.
+  - Uses HuggingFace `DetrImageProcessor` for resizing, normalization, and box formatting.
+
+- **`collate_fn_detr(batch, processor)`**:
+  - Pads all images in a batch to the largest height and width.
+  - Creates `pixel_mask` for attention masking in DETR.
+
+Used in: `detr/train_detr.py`
+
+---
+
+
 
