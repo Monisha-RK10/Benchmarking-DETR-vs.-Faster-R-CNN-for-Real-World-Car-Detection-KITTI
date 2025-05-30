@@ -1,4 +1,4 @@
-### detr/
+# detr/
 
 This folder contains code for training DETR using PyTorch Lightning.
 
