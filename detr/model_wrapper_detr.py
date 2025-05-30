@@ -15,7 +15,7 @@ id2label = {0: "car"}
 label2id = {v: k for k, v in id2label.items()}
 
 class Detr(pl.LightningModule): # DETR: subclass of pl.LightningModule to load and call the model, train, validate, and optimize it
-    def __init__(self, lr, lr_backbone, weight_decay, train_dataloader=None, val_dataloader=None):
+    def __init__(self, lr, lr_backbone, weight_decay, train_dataloader, val_dataloader):
         super().__init__()
         self.model = DetrForObjectDetection.from_pretrained(
             pretrained_model_name_or_path=CHECKPOINT,
