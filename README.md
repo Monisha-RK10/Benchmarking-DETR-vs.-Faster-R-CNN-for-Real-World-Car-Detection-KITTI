@@ -25,8 +25,3 @@ Car detection project comparing Faster R-CNN and DETR on the KITTI dataset.
 
 ### Faster R-CNN (False positive)
 ![Faster R-CNN Result](results/faster_rcnn/False_positive.png)
-
- **Try it in Colab**:
-- [Faster R-CNN Notebook](notebooks/faster_r_cnn_on_kitti.py)
-- [DETR Notebook](notebooks/detr_on_kitti.py)
-
