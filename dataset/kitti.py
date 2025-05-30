@@ -1,4 +1,4 @@
-# Step 2: Create a custom dataset class.
+# Step 2 for Faster R-CNN: Create a custom dataset class.
 # This step does the following:
 # Open image in PIL format, convert to RGB, and apply basic transform/toTensor.
 # Extract bbox, labels based on the class map.
@@ -77,13 +77,13 @@ class KITTIDataset(Dataset):
     def __len__(self):
         return len(self.image_files)
 
-# Step 3: Update collate function
+# Step 3 for Faster R-CNN: Update collate function
 # Faster R-CNN expects lists of targets, not a stacked tensor (PyTorch defaut).
 
 def collate_fn(batch):
     return tuple(zip(*batch)) # tuple of images ->(img1, img2, ...),  tuple of targets -> (target1, target2, ...)
 
-# Step 4: Subclass FilteredKITTIDataset of KITTIDataset
+# Step 4 for Faster R-CNN: Subclass FilteredKITTIDataset of KITTIDataset
 # This filters images based on image filenames in train.txt, val.txt (check input folder)
 
 class FilteredKITTIDataset(KITTIDataset):
