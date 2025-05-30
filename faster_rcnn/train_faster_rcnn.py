@@ -27,10 +27,6 @@ train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True, collate_fn=
 val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, collate_fn=collate_fn)
 
 # Step 6: Load model, set number of classes, & change the layer accordingly
-from torchvision.models.detection import fasterrcnn_resnet50_fpn
-import torchvision
-import torch
-import torch.optim as optim
 
 # Load pre-trained Faster R-CNN
 model = fasterrcnn_resnet50_fpn(pretrained=True)
