@@ -8,9 +8,6 @@ from transformers import DetrForObjectDetection, DetrImageProcessor
 # DetrImageProcessor: Preprocesses image (resizes, normalizes), converts boxes and labels into DETR format.
 # KITTIDatasetDETR custom class: Bridges both, uses parent to load raw data, processor to prep for model.
 
-# Set paths
-ANNOTATION_FILE_NAME = "_annotations.coco.json"
-
 # Custom dataset for DETR using COCO-format annotations
 class KITTIDatasetDETR(torchvision.datasets.CocoDetection):
     def __init__(self, image_directory_path: str, image_processor, train: bool = True):
