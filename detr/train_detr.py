@@ -12,8 +12,8 @@ from pytorch_lightning.loggers import TensorBoardLogger
 from dataset.kitti_detr import KITTIDatasetDETR, collate_fn
 
 # Step 6: Load dataset & dataloader
-
 # Set paths
+
 ANNOTATION_FILE_NAME = "_annotations.coco.json"
 DATASET_LOCATION = "/content/drive/MyDrive/DETR/coco_update"
 TRAIN_DIRECTORY = os.path.join(DATASET_LOCATION, "train")
@@ -27,7 +27,6 @@ TRAIN_DATALOADER = DataLoader(dataset=TRAIN_DATASET, collate_fn=collate_fn, batc
 VAL_DATALOADER = DataLoader(dataset=VAL_DATASET, collate_fn=collate_fn, batch_size=4)
 
 # Step 7: Load model & image processor.
-
 # Load both image processor & object detection model (they both must have the same model).
 # Image processor handles set of utilities for:
 # a) Preprocessing such as image resizing, normalization, padding, conversion to tensors, and
@@ -49,8 +48,8 @@ model.to(DEVICE)
 logger = TensorBoardLogger("lightning_logs", name="detr") # Set up TensorBoard logging for PyTorch Lightning.
 
 # Step 9: Training & evaluation.
-
 # Train the model while ensuring reproducibility, tracking loss, & setting hyperparameters.
+
 # Reproducibility
 def seed_everything(seed=42):
     pl.seed_everything(seed, workers=True)
