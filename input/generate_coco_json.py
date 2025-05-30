@@ -3,7 +3,7 @@ import json
 from shutil import copy2
 from PIL import Image
 
-# Step 1 for DETR: Generate json coco format
+# Step 1 for DETR: Generate json coco format.
 # Extract train & val images from train & val .txt.
 # Send them to the coco function to extract image, annotation, & categories in json format.
 # For annotation, parse the label to extract boxes (x, y, w, h), area, category, iscrowd to match with coco format.
