@@ -27,6 +27,7 @@ TRAIN_DATALOADER = DataLoader(dataset=TRAIN_DATASET, collate_fn=collate_fn, batc
 VAL_DATALOADER = DataLoader(dataset=VAL_DATASET, collate_fn=collate_fn, batch_size=4)
 
 # Step 7: Load model & image processor.
+
 # Load both image processor & object detection model (they both must have the same model).
 # Image processor handles set of utilities for:
 # a) Preprocessing such as image resizing, normalization, padding, conversion to tensors, and
@@ -45,10 +46,7 @@ model.to(DEVICE)
 
 %load_ext tensorboard
 %tensorboard --logdir lightning_logs/
-
-# Step 9: Set up TensorBoard logging for PyTorch Lightning.
-
-logger = TensorBoardLogger("lightning_logs", name="detr")
+logger = TensorBoardLogger("lightning_logs", name="detr") # Set up TensorBoard logging for PyTorch Lightning.
 
 # Step 9: Training & evaluation.
 
