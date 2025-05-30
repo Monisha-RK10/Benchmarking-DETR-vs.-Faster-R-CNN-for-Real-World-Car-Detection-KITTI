@@ -20,7 +20,7 @@ Used in: `faster-rcnn/train_faster_rcnn.py`
 ## `kitti_detr.py` – For DETR
 
 ### Components:
-- **`CocoDetection`**:
+- **`KITTIDatasetDETR`**:
   - Inherits from `torchvision.datasets.CocoDetection`.
   - Loads images + raw annotations.
   - Uses HuggingFace `DetrImageProcessor` for resizing, normalization, and box formatting.
