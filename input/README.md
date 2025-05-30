@@ -13,3 +13,5 @@ This folder includes:
       --train_ratio 0.8
 
 - `train.txt & val.txt`: Text files listing image base names (without extension) used for training and validation splits, respectively.
+
+- `generate_coco_json.py`: Script to generate train and val annotation COCO JSON for DETR. It requires train.txt and val.txt.
