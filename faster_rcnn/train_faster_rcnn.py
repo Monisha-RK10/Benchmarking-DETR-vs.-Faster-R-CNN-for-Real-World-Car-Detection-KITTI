@@ -43,7 +43,6 @@ params = [p for p in model.parameters() if p.requires_grad]
 optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)
 
 # Learning rate scheduler
-from torch.optim.lr_scheduler import StepLR
 lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1)
 
 # Training loop with best model saving
