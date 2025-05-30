@@ -8,6 +8,9 @@ from transformers import DetrForObjectDetection, DetrImageProcessor
 # DetrImageProcessor: Preprocesses image (resizes, normalizes), converts boxes and labels into DETR format.
 # Our custom class: Bridges both, uses parent to load raw data, processor to prep for model.
 
+# Set paths
+ANNOTATION_FILE_NAME = "_annotations.coco.json"
+
 # CocoDetection (parent), apply image processor
 class CocoDetection(torchvision.datasets.CocoDetection):
     def __init__(self, image_directory_path: str, image_processor, train: bool = True):
@@ -29,7 +32,7 @@ class CocoDetection(torchvision.datasets.CocoDetection):
 # Collect images in batch, find the largest H, W in the batch, pad the images in the batch to that size.
 # Creates a pixel mask: 1 = valid pixel, 0 = padding (used in attention masking inside DETR).
 
-def collate_fn(batch):
+def collate_fn(batch, image_processor: DetrImageProcessor):
     pixel_values = [item[0] for item in batch] # Each item in batch is a tuple: (pixel_values, labels)
     labels = [item[1] for item in batch]
     encoding = image_processor.pad(pixel_values, return_tensors="pt")
