@@ -11,7 +11,7 @@ from transformers import DetrForObjectDetection, DetrImageProcessor
 # Set paths
 ANNOTATION_FILE_NAME = "_annotations.coco.json"
 
-# CocoDetection (parent), apply image processor
+# Custom dataset for DETR using COCO-format annotations
 class KITTIDatasetDETR(torchvision.datasets.CocoDetection):
     def __init__(self, image_directory_path: str, image_processor, train: bool = True):
         annotation_file_path = os.path.join(image_directory_path, ANNOTATION_FILE_NAME)
