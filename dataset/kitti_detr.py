@@ -26,7 +26,7 @@ class CocoDetection(torchvision.datasets.CocoDetection):
 
 # Step 3 for DETR: Update the collate function.
 # Recieve the batch, extract pixel values and labels.
-# Collect images in batch, find the largest H, W in the batch, pad the images in the image to that size.
+# Collect images in batch, find the largest H, W in the batch, pad the images in the batch to that size.
 # Creates a pixel mask: 1 = valid pixel, 0 = padding (used in attention masking inside DETR).
 
 def collate_fn(batch):
