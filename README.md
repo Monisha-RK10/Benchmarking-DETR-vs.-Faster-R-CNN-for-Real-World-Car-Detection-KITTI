@@ -34,3 +34,10 @@ For clarity and presentation purposes, the code has been split across files and 
 
 ### Faster R-CNN (False positive)
 ![Faster R-CNN Result](results/faster_rcnn/False_positive.png)
+
+## Author
+
+**Monisha**  
+Connect via [Medium](https://medium.com/@monishatemp20)  
+
+---
