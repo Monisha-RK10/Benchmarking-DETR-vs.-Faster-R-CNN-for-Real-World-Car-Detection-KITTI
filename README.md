@@ -32,7 +32,6 @@ For clarity and presentation purposes, the code has been split across files and 
 ### DETR
 ![DETR Result](results/detr/prediction1.jpg)
 ![DETR Result](results/detr/prediction2.jpg)
-
 ### Faster R-CNN (False positive)
 ![Faster R-CNN Result](results/faster_rcnn/False_positive.png)
 
