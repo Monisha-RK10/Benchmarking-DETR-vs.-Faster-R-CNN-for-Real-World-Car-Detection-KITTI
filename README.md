@@ -1,6 +1,9 @@
 # Faster R-CNN vs. DETR: A Practical Lightweight Benchmark for Real-World Car Detection on KITTI
 Car detection project comparing Faster R-CNN and DETR on the KITTI dataset.
 
+> **Read the full write-up on Medium**:  
+> [Faster R-CNN vs. DETR: A Practical Lightweight Benchmark for Real-World Car Detection on KITTI](https://medium.com/@monishatemp20/faster-r-cnn-vs-detr-a-practical-lightweight-benchmark-for-real-world-car-detection-on-kitti-983c714e2da3)
+
 ## Dataset
 - **[KITTI Dataset](https://www.cvlibs.net/datasets/kitti/)**
 - Contains images and bounding boxes for cars.
@@ -10,8 +13,6 @@ Car detection project comparing Faster R-CNN and DETR on the KITTI dataset.
 |--------------|--------|---------|------------------------|
 | Faster R-CNN | 0.88   | 0.69    | Good on small objects  |
 | DETR         | 0.83   | 0.62    | Promising results      |
-
-**Read the full article [here](https://medium.com/@monishatemp20/faster-r-cnn-vs-detr-a-practical-lightweight-benchmark-for-real-world-car-detection-on-kitti-983c714e2da3)**
 
 > Note:
 This repo is a modular version of an end-to-end object detection project developed and tested in a Google Colab notebook.
