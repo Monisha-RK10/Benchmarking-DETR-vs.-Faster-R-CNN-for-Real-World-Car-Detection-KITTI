@@ -22,7 +22,6 @@ For clarity and presentation purposes, the code has been split across files and 
 - Install dependencies (see `requirements.txt`)
 - Provide pretrained models or resume checkpoints
 
----
 ## Sample Predictions
 
 ### Faster R-CNN
@@ -36,7 +35,6 @@ For clarity and presentation purposes, the code has been split across files and 
 ### Faster R-CNN (False positive)
 ![Faster R-CNN Result](results/faster_rcnn/False_positive.png)
 
----
 
 ## Author
 
