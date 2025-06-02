@@ -25,15 +25,15 @@ For clarity and presentation purposes, the code has been split across files and 
 ## Sample Predictions
 
 ### Faster R-CNN
-<img src="results/faster_rcnn/prediction1.png" width="400"/>
-<img src="results/faster_rcnn/prediction2.png" width="400"/>
+<img src="results/faster_rcnn/prediction1.png" width="1000"/>
+<img src="results/faster_rcnn/prediction2.png" width="1000"/>
 
 ### DETR
-<img src="results/detr/prediction1.jpg" width="400"/>
-<img src="results/detr/prediction2.jpg" width="400"/>
+<img src="results/detr/prediction1.jpg" width="1000"/>
+<img src="results/detr/prediction2.jpg" width="1000"/>
 
 ### Faster R-CNN (False positive)
-<img src="results/faster_rcnn/False_positive.png" width="400"/>
+<img src="results/faster_rcnn/False_positive.png" width="1000"/>
 
 ## Author
 
