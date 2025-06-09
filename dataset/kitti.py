@@ -15,9 +15,9 @@ import numpy as np
 import logging
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
+logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s') # DEBUG (10), INFO (20), WARNING (30), ERROR (40), CRITICAL(50)
 
-class KITTIDataset(Dataset):
+class KITTIDataset(Dataset): #  custom logic (No JSON, simple boxes only)
     def __init__(self, image_dir, label_dir, transforms=None, verbose=True):
         self.image_dir = image_dir
         self.label_dir = label_dir
