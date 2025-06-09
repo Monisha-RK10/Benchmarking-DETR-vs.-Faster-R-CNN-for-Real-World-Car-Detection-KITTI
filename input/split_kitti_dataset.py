@@ -4,6 +4,7 @@ import argparse
 import logging
 
 # Step 1 for Faster R-CNN: Split train/val (80/20) randomly & save them (train.txt, val.txt) for reproducibility
+# Using .txt for labels, no pycocoo tools applied.
 
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
