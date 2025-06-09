@@ -67,7 +67,7 @@ class KITTIDataset(Dataset): #  custom logic (No JSON, simple boxes only)
         target = {
             'boxes': boxes,
             'labels': labels,
-            'image_id': idx, # torch.tensor([idx]),tensor needed for training,.item() is called internally, idx for inference (only needs image)
+            'image_id': idx, # torch.tensor([idx]): tensor needed for training. idx: tensor not needed for inference (only needs image) because .item() is called internally.
             'area': (boxes[:, 3] - boxes[:, 1]) * (boxes[:, 2] - boxes[:, 0]), # for validation
             'iscrowd': torch.zeros((len(labels),), dtype=torch.int64), # for validation
 
