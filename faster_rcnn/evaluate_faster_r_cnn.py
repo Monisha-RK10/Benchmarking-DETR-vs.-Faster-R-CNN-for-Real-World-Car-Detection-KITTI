@@ -35,12 +35,12 @@ save_dir = '/content/result_faster_rcnn_conf_0.9'
 os.makedirs(save_dir, exist_ok=True)
 
 def visualize_and_save(image, prediction, idx, threshold=0.9):
-    image_np = image.permute(1, 2, 0).cpu().numpy()
+    image_np = image.permute(1, 2, 0).cpu().numpy() # Reorder [C, H, W] -> [H, W, C] for visualization
     plt.figure(figsize=(10,10))
     plt.imshow(image_np)
 
-    boxes = prediction['boxes'].cpu().numpy()
-    scores = prediction['scores'].cpu().numpy()
+    boxes = prediction['boxes'].cpu().numpy() # Use .detach().cpu().numpy() when inside training loops, logging predictions, or visualizing intermediate layers.
+    scores = prediction['scores'].cpu().numpy() # Use .cpu().numpy() when doing inference only and are sure there's no autograd graph.
     labels = prediction['labels'].cpu().numpy()
 
     for box, score, label in zip(boxes, scores, labels):
