@@ -7,12 +7,6 @@ from transformers import DetrForObjectDetection, DetrImageProcessor
 # CocoDetection (parent): Loads image file and raw annotations from JSON.
 # DetrImageProcessor: Preprocesses image (resizes, normalizes), converts boxes [cx, cy, w, h] and labels (integer tensors) into DETR format. Returns preprocessed image tensor & List of dictionaries (one per image)
 # KITTIDatasetDETR custom class: Bridges both, uses parent to load raw data, processor to prep for model.
-# Example of encoding["labels"] = [  # A list of length = batch size (here 1)
-#  {
-#    'class_labels': tensor([...]),  # shape: [num_objects]
-#    'boxes': tensor([[cx, cy, w, h], ...])  # shape: [num_objects, 4]
-#  }
-#]
 
 # Set paths
 ANNOTATION_FILE_NAME = "_annotations.coco.json"
@@ -27,7 +21,7 @@ class KITTIDatasetDETR(torchvision.datasets.CocoDetection):                     
     def __getitem__(self, idx):
         images, annotations = super(KITTIDatasetDETR, self).__getitem__(idx)                            # parent class' getitem to reuse the logic that reads an image and its annotations, getitem(idx) automatically gives the image and the annotations linked to it by image_id.
         image_id = self.ids[idx]
-        annotations = {'image_id': image_id, 'annotations': annotations}
+        annotations = {'image_id': image_id, 'annotations': annotations}                                # not changing the annotations' content, just wrapping them in a dictionary
         encoding = self.image_processor(images=images, annotations=annotations, return_tensors="pt")    
         pixel_values = encoding["pixel_values"].squeeze()                                               # to avoid unnecessary extra dimensions  during DataLoader batching
         target = encoding["labels"][0]                                                                  #  list of dicts, one per image. Only one image (not a batch) is given, so the first and only item with [0] is fetched.
