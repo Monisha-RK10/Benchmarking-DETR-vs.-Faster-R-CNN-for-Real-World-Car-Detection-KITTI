@@ -3,7 +3,7 @@ from torch.utils.data import DataLoader
 from torchvision.models.detection.faster_rcnn import fasterrcnn_resnet50_fpn
 from engine import evaluate   # Torchvision's custom training/eval loop. It expects each target to contain boxes, labels, 'image_id': as a torch.tensor([idx]) or int, so it can call .item() on it, area, iscrowd
 from coco_utils import convert_to_coco_api
-from coco_eval import CocoEvaluator
+from coco_eval import CocoEvaluator # PyTorch’s built-in wrapper around COCOeval.
 import matplotlib.pyplot as plt
 import torchvision.transforms.functional as F
 import os
