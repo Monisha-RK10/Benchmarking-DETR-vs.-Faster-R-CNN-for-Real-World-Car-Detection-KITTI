@@ -7,6 +7,12 @@ from transformers import DetrForObjectDetection, DetrImageProcessor
 # CocoDetection (parent): Loads image file and raw annotations from JSON.
 # DetrImageProcessor: Preprocesses image (resizes, normalizes), converts boxes [cx, cy, w, h] and labels (integer tensors) into DETR format. Returns preprocessed image tensor & List of dictionaries (one per image)
 # KITTIDatasetDETR custom class: Bridges both, uses parent to load raw data, processor to prep for model.
+# Example of encoding["labels"] = [  # A list of length = batch size (here 1)
+#  {
+#    'class_labels': tensor([...]),  # shape: [num_objects]
+#    'boxes': tensor([[cx, cy, w, h], ...])  # shape: [num_objects, 4]
+#  }
+#]
 
 # Set paths
 ANNOTATION_FILE_NAME = "_annotations.coco.json"
@@ -33,7 +39,8 @@ class KITTIDatasetDETR(torchvision.datasets.CocoDetection):                     
 # Creates a pixel mask: 1 = valid pixel, 0 = padding (used in attention masking inside DETR).
 
 def collate_fn(batch, image_processor: DetrImageProcessor):
-    pixel_values = [item[0] for item in batch] # Each item in batch is a tuple: (pixel_values, labels)
+    pixel_values = [item[0] for item in batch] # Each item in batch is a tuple: (pixel_values, labels) where batch = [(pv1, tgt1), (pv2, tgt2), (pv3, tgt3), (pv4, tgt4)]
+
     labels = [item[1] for item in batch]
     encoding = image_processor.pad(pixel_values, return_tensors="pt")
 
