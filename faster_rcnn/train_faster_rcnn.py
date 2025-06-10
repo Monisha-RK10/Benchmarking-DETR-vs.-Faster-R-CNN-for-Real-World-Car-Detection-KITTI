@@ -43,7 +43,7 @@ params = [p for p in model.parameters() if p.requires_grad]
 optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005) # weight decay: L2 regularization (prevents overfitting)
 
 # Learning rate scheduler
-lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1)
+lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1) # Epochs 0–9 -> LR = 0.005, Epochs 10–19 -> LR = 0.0005
 
 # Training loop with best model saving
 best_val_loss = float('inf')
