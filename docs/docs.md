@@ -1,4 +1,4 @@
-## YOLOv8-seg vs SAM vs Mask R-CNN vs Faster R-CNN
+## YOLOv8-seg vs SAM vs Mask R-CNN vs Faster R-CNN (Parsing & Evaluation)
 
 | Model            | Uses pycocotools? | parsing?              | Did eval manually?         | Mask/RLE?                 |
 | ---------------- | ----------------- | ----------------------| -------------------------- | ------------------------- |
