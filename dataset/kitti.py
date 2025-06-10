@@ -92,7 +92,7 @@ class FilteredKITTIDataset(KITTIDataset):
 
         # Load selected image filenames from train.txt or val.txt
         with open(image_list_file) as f:
-            selected = set(f.read().splitlines())
+            selected = set(f.read().splitlines()) # Converts the list into a set (unordered collection with unique values), a  set is much faster than in a list (O(1) vs O(n))
 
         # Filter image_files based on the selection
         self.image_files = [f for f in self.image_files if f in selected]
