@@ -40,7 +40,7 @@ model.to(device)
 
 # Set optimizer
 params = [p for p in model.parameters() if p.requires_grad]
-optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)
+optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005) # weight decay: L2 regularization (prevents overfitting)
 
 # Learning rate scheduler
 lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1)
@@ -92,7 +92,7 @@ for epoch in range(num_epochs):
             loss_dict = model(imgs, targets)
             losses = sum(loss for loss in loss_dict.values())
             val_loss += losses.item()
-    model.eval()  # return to eval mode after validation for safety and good practice.
+    model.eval()  # return to eval mode after validation for safety and good practice. Not the best practice, switch modes immediately to have less batchnorm, dropout influence
 
     avg_val_loss = val_loss / len(val_loader)
 
