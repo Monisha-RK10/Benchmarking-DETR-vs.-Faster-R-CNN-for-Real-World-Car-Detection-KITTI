@@ -25,7 +25,7 @@ class KITTIDatasetDETR(torchvision.datasets.CocoDetection):                     
         self.image_processor = image_processor
 
     def __getitem__(self, idx):
-        images, annotations = super(KITTIDatasetDETR, self).__getitem__(idx)                            # parent class' getitem to reuse the logic that reads an image and its annotations
+        images, annotations = super(KITTIDatasetDETR, self).__getitem__(idx)                            # parent class' getitem to reuse the logic that reads an image and its annotations, getitem(idx) automatically gives the image and the annotations linked to it by image_id.
         image_id = self.ids[idx]
         annotations = {'image_id': image_id, 'annotations': annotations}
         encoding = self.image_processor(images=images, annotations=annotations, return_tensors="pt")    
