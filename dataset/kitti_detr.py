@@ -39,7 +39,7 @@ def collate_fn(batch, image_processor: DetrImageProcessor):
     encoding = image_processor.pad(pixel_values, return_tensors="pt")
 
     return {
-        'pixel_values': encoding['pixel_values'],
+        'pixel_values': encoding['pixel_values'],         # names must be exact, because DETR expects them this way internally 
         'pixel_mask': encoding['pixel_mask'],
         'labels': labels
     }
