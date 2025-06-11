@@ -14,8 +14,8 @@ CHECKPOINT = "facebook/detr-resnet-50"
 id2label = {0: "car"}
 label2id = {v: k for k, v in id2label.items()}
 
-class Detr(pl.LightningModule): # DETR: subclass of pl.LightningModule to load and call the model, train, validate, and optimize it
-    def __init__(self, lr, lr_backbone, weight_decay, train_dataloader, val_dataloader):       # extending the parent class
+class Detr(pl.LightningModule):                                                                    # DETR: subclass of pl.LightningModule to load and call the model, train, validate, and optimize it
+    def __init__(self, lr, lr_backbone, weight_decay, train_dataloader, val_dataloader):           # extending the parent class
         super().__init__()
         self.model = DetrForObjectDetection.from_pretrained(
             pretrained_model_name_or_path=CHECKPOINT,
@@ -24,10 +24,10 @@ class Detr(pl.LightningModule): # DETR: subclass of pl.LightningModule to load a
             label2id=label2id,
             ignore_mismatched_sizes=True
         )
-        self.lr = lr                              # goes in configure_optimizers
+        self.lr = lr                                                                                # goes in configure_optimizers
         self.lr_backbone = lr_backbone
         self.weight_decay = weight_decay
-        self._train_dataloader = train_dataloader # pass them to .fit() later or define train_dataloader()/val_dataloader() methods 
+        self._train_dataloader = train_dataloader                                                   # pass them to .fit() later or define train_dataloader()/val_dataloader() methods 
         self._val_dataloader = val_dataloader
 
     def forward(self, pixel_values, pixel_mask):                                                    # overriding the forward() method
@@ -51,7 +51,7 @@ class Detr(pl.LightningModule): # DETR: subclass of pl.LightningModule to load a
 
     def validation_step(self, batch, batch_idx):
         loss, loss_dict = self.common_step(batch, batch_idx)
-        self.log("validation/loss", loss, on_step=False, on_epoch=True, prog_bar=True)              # Tracks losses in TensorBoard
+        self.log("validation/loss", loss, on_step=False, on_epoch=True, prog_bar=True)              # tracks losses in TensorBoard
         for k, v in loss_dict.items():
             self.log(f"validation_{k}", v.item())
         return loss
@@ -69,7 +69,7 @@ class Detr(pl.LightningModule): # DETR: subclass of pl.LightningModule to load a
         return torch.optim.AdamW(param_dicts, lr=self.lr, weight_decay=self.weight_decay)
 
     def train_dataloader(self):
-        return self._train_dataloader
+        return self._train_dataloader                                                               # internal use only
 
     def val_dataloader(self):
-        return self._val_dataloader
+        return self._val_dataloader                                                                 # internal use only
