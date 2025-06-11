@@ -75,7 +75,7 @@ trainer = Trainer(
     accelerator="gpu",
     max_epochs=40,
     gradient_clip_val=0.1,                                                                # Prevents exploding gradients: If gradients become too large (e.g. > 0.1), they get clipped
-    accumulate_grad_batches=8,
+    accumulate_grad_batches=8,                                                            # Training acts like trained with batch size number of batches * 8 
     log_every_n_steps=5
 )
 
