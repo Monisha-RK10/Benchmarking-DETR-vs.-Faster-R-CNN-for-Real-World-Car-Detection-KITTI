@@ -9,7 +9,7 @@ import torch
 # Resnet (ImageNet, no aggressive update) -> small learning rate to fine-tune gently.
 # Transformer (need to learn actively) -> higher learning rate to adapt faster.
 
-CHECKPOINT = "facebook/detr-resnet-50"
+CHECKPOINT = "facebook/detr-resnet-50"                                                             # finetuning
 
 id2label = {0: "car"}
 label2id = {v: k for k, v in id2label.items()}
