@@ -15,11 +15,11 @@ ANNOTATION_FILE_NAME = "_annotations.coco.json"
 class KITTIDatasetDETR(torchvision.datasets.CocoDetection):                                             # Custom class: KITTIDatasetDETR, parent class: torchvision.datasets.CocoDetection i.e., extending CocoDetection (reads COCO-style image + annotations)
     def __init__(self, image_directory_path: str, image_processor, train: bool = True):
         annotation_file_path = os.path.join(image_directory_path, ANNOTATION_FILE_NAME)
-        super(KITTIDatasetDETR, self).__init__(image_directory_path, annotation_file_path)              # parent class' constructor to set up base functionality (image paths, annotation loading)
+        super(KITTIDatasetDETR, self).__init__(image_directory_path, annotation_file_path)              # calling super() once per method: parent class' constructor to set up base functionality (image paths, annotation loading)
         self.image_processor = image_processor
 
     def __getitem__(self, idx):
-        images, annotations = super(KITTIDatasetDETR, self).__getitem__(idx)                            # parent class' getitem to reuse the logic that reads an image and its annotations, getitem(idx) automatically gives the image and the annotations linked to it by image_id.
+        images, annotations = super(KITTIDatasetDETR, self).__getitem__(idx)                            #  calling super() once per method: parent class' getitem to reuse the logic that reads an image and its annotations, getitem(idx) automatically gives the image and the annotations linked to it by image_id.
         image_id = self.ids[idx]
         annotations = {'image_id': image_id, 'annotations': annotations}                                # not changing the annotations' content, just wrapping them in a dictionary
         encoding = self.image_processor(images=images, annotations=annotations, return_tensors="pt")    
