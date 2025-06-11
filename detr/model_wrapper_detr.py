@@ -59,8 +59,8 @@ class Detr(pl.LightningModule):                                                 
     def configure_optimizers(self):
         param_dicts = [
             {
-                "params": [p for n, p in self.named_parameters() if "backbone" not in n and p.requires_grad]
-            },
+                "params": [p for n, p in self.named_parameters() if "backbone" not in n and p.requires_grad] 
+            },                                                                                      # name (n), parameter (p), example:  ("backbone.body.layer1.0.conv1.weight", Parameter(...))
             {
                 "params": [p for n, p in self.named_parameters() if "backbone" in n and p.requires_grad],
                 "lr": self.lr_backbone,
