@@ -69,7 +69,7 @@ class Detr(pl.LightningModule):                                                 
         return torch.optim.AdamW(param_dicts, lr=self.lr, weight_decay=self.weight_decay)
 
     def train_dataloader(self):
-        return self._train_dataloader                                                               # internal use only
+        return self._train_dataloader                                                               # internal use only, exposes internal dataloader
 
     def val_dataloader(self):
         return self._val_dataloader                                                                 # internal use only
