@@ -25,7 +25,7 @@ os.makedirs(output_train, exist_ok=True)
 os.makedirs(output_valid, exist_ok=True)
 
 # COCO-style category list (class_id = 1 for COCO, but DETR internally shifts this to class_id=0)
-categories = [{"id": 0, "name": "Car"}] # Ensure that this category match with id2label & label2id set in the model
+categories = [{"id": 0, "name": "Car"}]                                           # Ensure that this category match with id2label & label2id set in the model
 
 def load_split(txt_path): # Train.txt, val.txt
     with open(txt_path, "r") as f:
@@ -39,7 +39,7 @@ def parse_label_file(label_file):
             parts = line.strip().split()
             if len(parts) < 8:
                 continue
-            if parts[0].lower() != "car":  # Handle 'car', 'Car', etc.
+            if parts[0].lower() != "car":                                         # Handle 'car', 'Car', etc.
                 continue
             try:
                 x_min = float(parts[4])
@@ -49,9 +49,9 @@ def parse_label_file(label_file):
                 width = x_max - x_min
                 height = y_max - y_min
                 annotations.append({
-                    "bbox": [x_min, y_min, width, height],  # COCO format
+                    "bbox": [x_min, y_min, width, height],                        # COCO format
                     "area": width * height,
-                    "category_id": 0,  # COCO-style ID (DETR will convert to 0 internally)
+                    "category_id": 0,                                             # COCO-style ID (DETR will convert to 0 internally)
                     "iscrowd": 0,
                 })
             except Exception as e:
