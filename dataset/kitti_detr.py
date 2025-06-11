@@ -33,9 +33,10 @@ class KITTIDatasetDETR(torchvision.datasets.CocoDetection):                     
 # Creates a pixel mask: 1 = valid pixel, 0 = padding (used in attention masking inside DETR).
 
 def collate_fn(batch, image_processor: DetrImageProcessor):
+    
     pixel_values = [item[0] for item in batch] # Each item in batch is a tuple: (pixel_values, labels) where batch = [(pv1, tgt1), (pv2, tgt2), (pv3, tgt3), (pv4, tgt4)]
-
     labels = [item[1] for item in batch]
+
     encoding = image_processor.pad(pixel_values, return_tensors="pt")
 
     return {
