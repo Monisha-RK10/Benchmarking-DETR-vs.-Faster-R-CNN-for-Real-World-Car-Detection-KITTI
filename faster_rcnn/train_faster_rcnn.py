@@ -29,7 +29,7 @@ val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, collate_fn=col
 # Step 6 for Faster R-CNN: Load model, set number of classes, & change the layer accordingly
 
 # Load pre-trained Faster R-CNN
-model = fasterrcnn_resnet50_fpn(pretrained=True)
+model = fasterrcnn_resnet50_fpn(pretrained=True)    # Finetuning, handles optimizer, backbone, ROI heads, etc. internally
 num_classes = 2  # 1 class ('Car') + background
 in_features = model.roi_heads.box_predictor.cls_score.in_features
 model.roi_heads.box_predictor = torchvision.models.detection.faster_rcnn.FastRCNNPredictor(in_features, num_classes)
