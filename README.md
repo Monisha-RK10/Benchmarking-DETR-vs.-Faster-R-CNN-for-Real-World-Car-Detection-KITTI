@@ -23,7 +23,7 @@ Car detection project comparing Faster R-CNN and DETR on the KITTI dataset.
 This repo is a modular version of an end-to-end object detection project developed and tested in a Google Colab notebook.
 
 ## Observation
-- Faster R-CNN consistently outperforms DETR
+- Faster R-CNN consistently outperforms DETR in this setup
 - The gap is prominent for small objects (AP: 0.49 vs. 0.32) (DETR lacks an FPN or multi-scale feature representation)
 - Both models perform equally well on large objects (AP ≈ 0.72), showing DETR can be competitive with enough training
 
