@@ -74,7 +74,7 @@ trainer = Trainer(
     devices=1,
     accelerator="gpu",
     max_epochs=40,
-    gradient_clip_val=0.1,
+    gradient_clip_val=0.1,                                                                # Prevents exploding gradients: If gradients become too large (e.g. > 0.1), they get clipped
     accumulate_grad_batches=8,
     log_every_n_steps=5
 )
@@ -84,7 +84,7 @@ trainer.fit(lightning_model)
 
 # Step 15 for DETR: Save the model and processor
 MODEL_PATH_40_updated = "/content/drive/MyDrive/DETR/custom-model_40epochs_updated"
-lightning_model.model.save_pretrained(MODEL_PATH_40_updated)
+lightning_model.model.save_pretrained(MODEL_PATH_40_updated)                             # FULL HuggingFace model + config (saves config, weight, tokenizer/image processor)
 image_processor.save_pretrained(MODEL_PATH_40_updated)
 
 # Optional: Save weights separately
