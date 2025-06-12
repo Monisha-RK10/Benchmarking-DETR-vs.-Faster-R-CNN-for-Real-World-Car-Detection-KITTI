@@ -2,7 +2,7 @@
 Car detection project comparing Faster R-CNN and DETR on the KITTI dataset.
 
 > **Read the full write-up on Medium**:  
-> [Faster R-CNN vs. DETR: A Practical Lightweight Benchmark for Real-World Car Detection on KITTI](https://medium.com/@monishatemp20/faster-r-cnn-vs-detr-a-practical-lightweight-benchmark-for-real-world-car-detection-on-kitti-983c714e2da3)
+> [Benchmarking DETR vs. Faster R-CNN for Real-World Car Detection (KITTI)](https://medium.com/@monishatemp20/faster-r-cnn-vs-detr-a-practical-lightweight-benchmark-for-real-world-car-detection-on-kitti-983c714e2da3)
 >
 > **For architectures of Faster R-CNN & DETR, read the below articles on Medium:**
 >
