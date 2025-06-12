@@ -2,7 +2,7 @@ import pytorch_lightning as pl                                                  
 from transformers import DetrForObjectDetection
 import torch
 
-# Step 5 for DETR
+# Step 4 for DETR
 # Plugging the HuggingFace DETR model into the Lightning pipeline (more info @ https://lightning.ai/docs/pytorch/stable/common/lightning_module.html).
 # Different learning rates to improve convergence and stability.
 # Resnet (ImageNet, no aggressive update) -> small learning rate to fine-tune gently.
