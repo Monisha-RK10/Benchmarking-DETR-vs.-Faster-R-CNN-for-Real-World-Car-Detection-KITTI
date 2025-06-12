@@ -19,8 +19,8 @@ os.makedirs(SAVE_DIR, exist_ok=True)
 
 # Utils
 categories = VAL_DATASET.coco.cats                                                                               # KITTIDatasetDETR class internally wraps a COCO-style object (uses pycocotools.coco.COCO to parse and expose the dataset's annotations). Allows VAL_DATASET.coco.cats, VAL_DATASET.coco.getImgIds(), VAL_DATASET.coco.imgToAnns[image_id]
-id2label = {k: v['name'] for k, v in categories.items()}
-box_annotator = sv.BoxAnnotator()
+id2label = {k: v['name'] for k, v in categories.items()}                                                         # Similar to {0: 'car', 1: 'pedestrian', ...}, used for displaying class names on visualizations
+box_annotator = sv.BoxAnnotator()                                                                                # Used to draw bounding boxes with labels on images.
 
 # Get all image IDs
 image_ids = VAL_DATASET.coco.getImgIds()
@@ -39,20 +39,20 @@ for image_id in tqdm(image_ids, desc="Processing Validation Set"):
 
     # Ground truth from val dataset
     if len(annotations) > 0:
-        detections_gt = sv.Detections.from_coco_annotations(coco_annotation=annotations)
-        labels_gt = [f"{id2label[class_id]}" for _, _, class_id, _ in detections_gt]
-        frame_gt = box_annotator.annotate(scene=image.copy(), detections=detections_gt, labels=labels_gt)
+        detections_gt = sv.Detections.from_coco_annotations(coco_annotation=annotations)                          # Converts GT annotations to supervision.Detections
+        labels_gt = [f"{id2label[class_id]}" for _, _, class_id, _ in detections_gt]                              # Extracts class names for each box
+        frame_gt = box_annotator.annotate(scene=image.copy(), detections=detections_gt, labels=labels_gt)         # Draws GT boxes on a copy of the image
     else:
         print('No GT boxes')
         frame_gt = image.copy()  # No GT boxes
 
     # Prediction from model inference
     with torch.no_grad():
-        inputs = image_processor(images=image, return_tensors='pt').to(DEVICE)
-        outputs = model(**inputs)                                                                                  # Python's "unpacking" operator for dictionaries
+        inputs = image_processor(images=image, return_tensors='pt').to(DEVICE)                                     # Prepares input tensors
+        outputs = model(**inputs)                                                                                  # Python's "unpacking" operator for dictionaries, raw model output 
 
         target_sizes = torch.tensor([image.shape[:2]]).to(DEVICE)
-        results = image_processor.post_process_object_detection(
+        results = image_processor.post_process_object_detection(                                                   # Post-processes prediction (converts raw logits to scores, boxes, and class IDs, applies conf thresh, rescales boxes to image size)
             outputs=outputs,
             threshold=THRESHOLD,
             target_sizes=target_sizes
@@ -60,9 +60,9 @@ for image_id in tqdm(image_ids, desc="Processing Validation Set"):
 
     # Handle empty detection results
     if len(results["scores"]) > 0:
-        detections_pred = sv.Detections.from_transformers(transformers_results=results).with_nms(threshold=0.9)     # Converts this dict (result) into a sv.Detections object (a format supervision uses internally)
+        detections_pred = sv.Detections.from_transformers(transformers_results=results).with_nms(threshold=0.9)     # Converts predictions to supervision.Detections format, applies NMS
         labels_pred = [f"{id2label[class_id]} {confidence:.2f}" for _, confidence, class_id, _ in detections_pred]  # Each detection is a tuple of (bbox, confidence, class_id, tracker_id)
-        frame_pred = box_annotator.annotate(scene=image.copy(), detections=detections_pred, labels=labels_pred)
+        frame_pred = box_annotator.annotate(scene=image.copy(), detections=detections_pred, labels=labels_pred)     # Draws prediction boxes and class/confidence on a copy of the image
     else:
         frame_pred = image.copy()  # No predictions
 
