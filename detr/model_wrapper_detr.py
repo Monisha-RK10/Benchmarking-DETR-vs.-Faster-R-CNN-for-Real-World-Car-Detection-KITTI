@@ -1,4 +1,4 @@
-import pytorch_lightning as pl                              #  lightweight training wrapper over raw PyTorch 
+import pytorch_lightning as pl                                                                   #  lightweight training wrapper over raw PyTorch 
 from transformers import DetrForObjectDetection
 import torch
 
@@ -8,7 +8,7 @@ import torch
 # Resnet (ImageNet, no aggressive update) -> small learning rate to fine-tune gently.
 # Transformer (need to learn actively) -> higher learning rate to adapt faster.
 
-CHECKPOINT = "facebook/detr-resnet-50"                                                             # finetuning
+CHECKPOINT = "facebook/detr-resnet-50"                                                             # finetuning everything (backbone + transformer + head)
 
 id2label = {0: "car"}
 label2id = {v: k for k, v in id2label.items()}
