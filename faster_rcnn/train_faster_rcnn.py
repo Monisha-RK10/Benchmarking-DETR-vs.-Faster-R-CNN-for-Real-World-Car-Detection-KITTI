@@ -29,7 +29,7 @@ val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, collate_fn=col
 # Step 6 for Faster R-CNN: Load model, set number of classes, & change the layer accordingly
 
 # Load pre-trained Faster R-CNN
-model = fasterrcnn_resnet50_fpn(pretrained=True)    # Finetuning, handles optimizer, backbone, ROI heads, etc. internally
+model = fasterrcnn_resnet50_fpn(pretrained=True)                                                     # Finetuning (Backbone, RPN, ROI Heads (except classifier head,replaced), handles optimizer, backbone, ROI heads, etc. internally
 num_classes = 2  # 1 class ('Car') + background
 in_features = model.roi_heads.box_predictor.cls_score.in_features
 model.roi_heads.box_predictor = torchvision.models.detection.faster_rcnn.FastRCNNPredictor(in_features, num_classes)
@@ -40,10 +40,10 @@ model.to(device)
 
 # Set optimizer
 params = [p for p in model.parameters() if p.requires_grad]
-optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005) # backbone (e.g., ResNet) is well-behaved with SGD, weight decay: L2 regularization (prevents overfitting)
+optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)                          # backbone (e.g., ResNet) is well-behaved with SGD, weight decay: L2 regularization (prevents overfitting)
 
 # Learning rate scheduler
-lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1) #  reduces the LR every few epochs no matter what, Epochs 0–9 -> LR = 0.005, Epochs 10–19 -> LR = 0.0005
+lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1)                                           #  reduces the LR every few epochs no matter what, Epochs 0–9 -> LR = 0.005, Epochs 10–19 -> LR = 0.0005
 
 # Training loop with best model saving
 best_val_loss = float('inf')
@@ -70,7 +70,7 @@ for epoch in range(num_epochs):
         for k in loss_dict:
             loss_comp_sum[k] += loss_dict[k].item()
         #for k, v in loss_dict.items():
-          #  print(f"Epoch [{epoch+1}] - {k}: {v.item():.4f}") # losses like loss_classifier + loss_box_reg + loss_objectness + loss_rpn_box_reg
+          #  print(f"Epoch [{epoch+1}] - {k}: {v.item():.4f}")                                      # losses like loss_classifier + loss_box_reg + loss_objectness + loss_rpn_box_reg
 
         optimizer.zero_grad()
         losses.backward()
@@ -81,8 +81,8 @@ for epoch in range(num_epochs):
     avg_train_loss = train_loss / len(train_loader)
 
     # --- Validation ---
-    # model.eval() # Input: images only (targets = None) Output: predictions 
-    model.train()  # NOTE: Needed to compute loss in torchvision models, switch back to train mode to compute loss
+    # model.eval()                                                                                   # Input: images only (targets = None) Output: predictions 
+    model.train()                                                                                    # NOTE: Needed to compute loss in torchvision models, switch back to train mode to compute loss
     val_loss = 0.0
     with torch.no_grad():
         for imgs, targets in val_loader:
@@ -92,7 +92,7 @@ for epoch in range(num_epochs):
             loss_dict = model(imgs, targets)
             losses = sum(loss for loss in loss_dict.values())
             val_loss += losses.item()
-    model.eval()  # return to eval mode after validation for safety and good practice. Not the best practice, switch modes immediately to have less batchnorm, dropout influence
+    model.eval()                                                                                     # return to eval mode after validation for safety and good practice. Not the best practice, switch modes immediately to have less batchnorm, dropout influence
 
     avg_val_loss = val_loss / len(val_loader)
 
@@ -114,4 +114,4 @@ for epoch in range(num_epochs):
     print(f"Epoch [{epoch+1}/{num_epochs}] - Train Loss: {avg_train_loss:.4f}, Val Loss: {avg_val_loss:.4f}")
 
     # Optional: save model each epoch
-    # torch.save(model.state_dict(), f'fasterrcnn_epoch{epoch+1}.pth')  # ← uncomment if you want per-epoch checkpoints
+    # torch.save(model.state_dict(), f'fasterrcnn_epoch{epoch+1}.pth')                                  # uncomment if you want per-epoch checkpoints
