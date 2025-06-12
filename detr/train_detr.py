@@ -13,28 +13,28 @@ from dataset.kitti_detr import KITTIDatasetDETR, collate_fn
 # Model wrapper imported from detr/model_wrapper_detr.py
 from model_wrapper_detr import Detr
 
-# Step 6 for DETR: Reproducibility
+# Step 5 for DETR: Reproducibility
 def seed_everything(seed=42):
     pl.seed_everything(seed, workers=True)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 seed_everything(42)
 
-# Step 7 for DETR: Define paths and config
+# Step 6 for DETR: Define paths and config
 CHECKPOINT = 'facebook/detr-resnet-50'
 ANNOTATION_FILE_NAME = "_annotations.coco.json"
 DATASET_LOCATION = "/content/drive/MyDrive/DETR/coco_update"
 TRAIN_DIRECTORY = os.path.join(DATASET_LOCATION, "train")
 VAL_DIRECTORY = os.path.join(DATASET_LOCATION, "valid")
 
-# Step 8 for DETR: Load processor
+# Step 7 for DETR: Load processor
 # Image processor handles set of utilities for:
 # a) Preprocessing such as image resizing, normalization, padding, conversion to tensors, and
 # b) Post-processeing such as model outputs, turning raw logits into actual bounding boxes, labels, and scores.
 # Set conf & iou threshold for inference/post processing
 image_processor = DetrImageProcessor.from_pretrained(CHECKPOINT)
 
-# Step 9 for DETR: Load datasets and dataloaders
+# Step 8 for DETR: Load datasets and dataloaders
 TRAIN_DATASET = KITTIDatasetDETR(image_directory_path=TRAIN_DIRECTORY,
                                  image_processor=image_processor, train=True)
 VAL_DATASET = KITTIDatasetDETR(image_directory_path=VAL_DIRECTORY,
@@ -45,10 +45,10 @@ TRAIN_DATALOADER = DataLoader(dataset=TRAIN_DATASET,
 VAL_DATALOADER = DataLoader(dataset=VAL_DATASET,
                             collate_fn=collate_fn, batch_size=4)
 
-# Step 10 for DETR: TensorBoard logger
+# Step 9 for DETR: TensorBoard logger
 logger = TensorBoardLogger("lightning_logs", name="detr")
 
-# Step 11 for DETR: Initialize PyTorch Lightning model wrapper
+# Step 10 for DETR: Initialize PyTorch Lightning model wrapper
 lightning_model = Detr(
     lr=1e-4,
     lr_backbone=1e-5,
@@ -57,7 +57,7 @@ lightning_model = Detr(
     val_dataloader=VAL_DATALOADER
 )
 
-# Step 12 for DETR: ModelCheckpoint callback
+# Step 11 for DETR: ModelCheckpoint callback
 checkpoint_callback = ModelCheckpoint(
     save_top_k=1,
     monitor="validation/loss",
@@ -67,7 +67,7 @@ checkpoint_callback = ModelCheckpoint(
     save_weights_only=True
 )
 
-# Step 13 for DETR: Trainer setup
+# Step 12 for DETR: Trainer setup
 trainer = Trainer(
     logger=logger,
     callbacks=[checkpoint_callback],
@@ -79,10 +79,10 @@ trainer = Trainer(
     log_every_n_steps=5
 )
 
-# Step 14 for DETR: Train the model
+# Step 13 for DETR: Train the model
 trainer.fit(lightning_model)
 
-# Step 15 for DETR: Save the model and processor
+# Step 14 for DETR: Save the model and processor
 MODEL_PATH_40_updated = "/content/drive/MyDrive/DETR/custom-model_40epochs_updated"
 lightning_model.model.save_pretrained(MODEL_PATH_40_updated)                             # FULL HuggingFace model + config (saves config, weight, tokenizer/image processor)
 image_processor.save_pretrained(MODEL_PATH_40_updated)
