@@ -15,16 +15,16 @@ ANNOTATION_FILE_NAME = "_annotations.coco.json"
 class KITTIDatasetDETR(torchvision.datasets.CocoDetection):                                             # Custom class: KITTIDatasetDETR, parent class: torchvision.datasets.CocoDetection i.e., extending CocoDetection (reads COCO-style image + annotations)
     def __init__(self, image_directory_path: str, image_processor, train: bool = True):
         annotation_file_path = os.path.join(image_directory_path, ANNOTATION_FILE_NAME)
-        super(KITTIDatasetDETR, self).__init__(image_directory_path, annotation_file_path)              # calling super() once per method: parent class' constructor to set up base functionality (image paths, annotation loading)
+        super(KITTIDatasetDETR, self).__init__(image_directory_path, annotation_file_path)              # Calling super() once per method: parent class' constructor to set up base functionality (image paths, annotation loading)
         self.image_processor = image_processor
 
     def __getitem__(self, idx):
-        images, annotations = super(KITTIDatasetDETR, self).__getitem__(idx)                            #  calling super() once per method: parent class' getitem to reuse the logic that reads an image and its annotations, getitem(idx) automatically gives the image and the annotations linked to it by image_id.
+        images, annotations = super(KITTIDatasetDETR, self).__getitem__(idx)                            # Calling super() once per method: parent class' getitem to reuse the logic that reads an image and its annotations, getitem(idx) automatically gives the image and the annotations linked to it by image_id.
         image_id = self.ids[idx]
-        annotations = {'image_id': image_id, 'annotations': annotations}                                # not changing the annotations' content, just wrapping them in a dictionary
+        annotations = {'image_id': image_id, 'annotations': annotations}                                # Not changing the annotations' content, just wrapping them in a dictionary
         encoding = self.image_processor(images=images, annotations=annotations, return_tensors="pt")    
-        pixel_values = encoding["pixel_values"].squeeze()                                               # to avoid unnecessary extra dimensions  during DataLoader batching
-        target = encoding["labels"][0]                                                                  #  list of dicts, one per image. Only one image (not a batch) is given, so the first and only item with [0] is fetched.
+        pixel_values = encoding["pixel_values"].squeeze()                                               # To avoid unnecessary extra dimensions during DataLoader batching
+        target = encoding["labels"][0]                                                                  # List of dicts, one per image. Only one image (not a batch) is given, so the first and only item with [0] is fetched.
         return pixel_values, target
 
 # Step 3 for DETR: Update the collate function.
@@ -34,13 +34,13 @@ class KITTIDatasetDETR(torchvision.datasets.CocoDetection):                     
 
 def collate_fn(batch, image_processor: DetrImageProcessor):
     
-    pixel_values = [item[0] for item in batch] # Each item in batch is a tuple: (pixel_values, labels) where batch = [(pv1, tgt1), (pv2, tgt2), (pv3, tgt3), (pv4, tgt4)]
+    pixel_values = [item[0] for item in batch]                                                          # Each item in batch is a tuple: (pixel_values, labels) where batch = [(pv1, tgt1), (pv2, tgt2), (pv3, tgt3), (pv4, tgt4)]
     labels = [item[1] for item in batch]
 
     encoding = image_processor.pad(pixel_values, return_tensors="pt")
 
     return {
-        'pixel_values': encoding['pixel_values'],         # names must be exact, because DETR expects them this way internally 
+        'pixel_values': encoding['pixel_values'],                                                        # Names must be exact, because DETR expects them this way internally 
         'pixel_mask': encoding['pixel_mask'],
         'labels': labels
     }
