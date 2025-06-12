@@ -15,9 +15,9 @@ import numpy as np
 import logging
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s') # DEBUG (10), INFO (20), WARNING (30), ERROR (40), CRITICAL(50)
+logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')     # DEBUG (10), INFO (20), WARNING (30), ERROR (40), CRITICAL(50)
 
-class KITTIDataset(Dataset): #  custom logic (No JSON, simple boxes only)
+class KITTIDataset(Dataset):                                                      # custom logic (No JSON, simple boxes only)
     def __init__(self, image_dir, label_dir, transforms=None, verbose=True):
         self.image_dir = image_dir
         self.label_dir = label_dir
@@ -25,7 +25,7 @@ class KITTIDataset(Dataset): #  custom logic (No JSON, simple boxes only)
         self.verbose = verbose
         self.image_files = sorted(os.listdir(image_dir))
 
-    def __getitem__(self, idx): # Retrieves image-label pair at index
+    def __getitem__(self, idx):                                                   # Retrieves image-label pair at index
         img_name = self.image_files[idx]
         img_path = os.path.join(self.image_dir, img_name)
         label_path = os.path.join(self.label_dir, img_name.replace('.png', '.txt'))
@@ -67,9 +67,9 @@ class KITTIDataset(Dataset): #  custom logic (No JSON, simple boxes only)
         target = {
             'boxes': boxes,
             'labels': labels,
-            'image_id': idx, # torch.tensor([idx]): tensor needed for training. idx: tensor not needed for inference (only needs image) because .item() is called internally.
-            'area': (boxes[:, 3] - boxes[:, 1]) * (boxes[:, 2] - boxes[:, 0]), # for validation
-            'iscrowd': torch.zeros((len(labels),), dtype=torch.int64), # for validation
+            'image_id': idx,                                                      # torch.tensor([idx]): tensor needed for training. idx: tensor not needed for inference (only needs image) because .item() is called internally.
+            'area': (boxes[:, 3] - boxes[:, 1]) * (boxes[:, 2] - boxes[:, 0]),    # for validation
+            'iscrowd': torch.zeros((len(labels),), dtype=torch.int64),            # for validation
 
         }
         return img, target
@@ -81,7 +81,7 @@ class KITTIDataset(Dataset): #  custom logic (No JSON, simple boxes only)
 # Faster R-CNN expects lists of targets, not a stacked tensor (PyTorch defaut).
 
 def collate_fn(batch):
-    return tuple(zip(*batch)) # tuple of images ->(img1, img2, ...),  tuple of targets -> (target1, target2, ...)
+    return tuple(zip(*batch))                                                      # tuple of images ->(img1, img2, ...),  tuple of targets -> (target1, target2, ...)
 
 # Step 4 for Faster R-CNN: Subclass FilteredKITTIDataset of KITTIDataset
 # This filters images based on image filenames in train.txt, val.txt (check input folder)
@@ -92,7 +92,7 @@ class FilteredKITTIDataset(KITTIDataset):
 
         # Load selected image filenames from train.txt or val.txt
         with open(image_list_file) as f:
-            selected = set(f.read().splitlines()) # Converts the list into a set (unordered collection with unique values), a  set is much faster than in a list (O(1) vs O(n))
+            selected = set(f.read().splitlines())                                  # Converts the list into a set (unordered collection with unique values), a  set is much faster than in a list (O(1) vs O(n))
 
         # Filter image_files based on the selection
         self.image_files = [f for f in self.image_files if f in selected]
