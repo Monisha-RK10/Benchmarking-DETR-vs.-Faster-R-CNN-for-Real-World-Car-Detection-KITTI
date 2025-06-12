@@ -1,4 +1,4 @@
-# Faster R-CNN vs. DETR: A Practical Lightweight Benchmark for Real-World Car Detection on KITTI
+# Benchmarking DETR vs. Faster R-CNN for Real-World Car Detection (KITTI)
 Car detection project comparing Faster R-CNN and DETR on the KITTI dataset.
 
 > **Read the full write-up on Medium**:  
