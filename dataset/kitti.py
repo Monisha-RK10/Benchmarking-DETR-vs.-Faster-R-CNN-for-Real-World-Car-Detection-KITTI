@@ -54,7 +54,7 @@ class KITTIDataset(Dataset):                                                    
                         continue
                     xmin, ymin, xmax, ymax = map(float, fields[4:8])
                     boxes.append([xmin, ymin, xmax, ymax])
-                    labels.append(1)                                              # class ID for 'Car'
+                    labels.append(1)                                              # Class ID for 'Car'
 
         # Handle images with no valid boxes
         if len(boxes) == 0:
@@ -67,7 +67,7 @@ class KITTIDataset(Dataset):                                                    
         target = {
             'boxes': boxes,
             'labels': labels,
-            'image_id': idx,                                                      # torch.tensor([idx]): tensor needed for training. idx: tensor not needed for inference (only needs image) because .item() is called internally.
+            'image_id': idx,                                                      # torch.tensor([idx]): tensor is needed for training. idx: tensor is not needed for inference (only needs image) because .item() is called internally.
             'area': (boxes[:, 3] - boxes[:, 1]) * (boxes[:, 2] - boxes[:, 0]),    # for validation
             'iscrowd': torch.zeros((len(labels),), dtype=torch.int64),            # for validation
 
