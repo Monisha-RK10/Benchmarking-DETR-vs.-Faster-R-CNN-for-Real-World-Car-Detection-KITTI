@@ -1,3 +1,8 @@
+# Step 5 for Faster R-CNN: Training
+# This code does the following:
+# Create dataset & dataloader for train & val
+# Load model, set number of classes, & change the layer accordingly
+
 import torch
 from torch.utils.data import DataLoader
 from torchvision.models.detection import fasterrcnn_resnet50_fpn
@@ -7,8 +12,6 @@ from torch.optim.lr_scheduler import StepLR
 
 # Dataset class and collate_fn imported from datasets/kitti.py
 from dataset.kitti import FilteredKITTIDataset, collate_fn
-
-# Step 5 for Faster R-CNN: Create dataset & dataloader for train & val
 
 train_dataset = FilteredKITTIDataset(
     '/content/drive/MyDrive/faster r-cnn/train/images',
