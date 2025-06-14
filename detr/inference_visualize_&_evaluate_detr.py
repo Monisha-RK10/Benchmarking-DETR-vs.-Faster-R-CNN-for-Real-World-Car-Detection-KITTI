@@ -44,7 +44,7 @@ for image_id in tqdm(image_ids, desc="Processing Validation Set"):
         frame_gt = box_annotator.annotate(scene=image.copy(), detections=detections_gt, labels=labels_gt)           # Draws GT boxes on a copy of the image
     else:
         print('No GT boxes')
-        frame_gt = image.copy()  # No GT boxes
+        frame_gt = image.copy()                                                                                     # No GT boxes
 
     # Prediction from model inference
     with torch.no_grad():
