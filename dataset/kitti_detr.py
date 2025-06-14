@@ -1,7 +1,8 @@
 # Step 2 for DETR: To create train & val dataset.
 # CocoDetection (parent): Loads image file and raw annotations from JSON.
-# DetrImageProcessor: Preprocesses image (resizes, normalizes), converts boxes [cx, cy, w, h] and labels (integer tensors) into DETR format. Returns preprocessed image tensor & List of dictionaries (one per image)
-# KITTIDatasetDETR custom class: Bridges both, uses parent to load raw data, processor to prep for model.
+# DetrImageProcessor: Preprocesses image (resizes, normalizes), converts boxes [cx, cy, w, h] and labels (integer tensors) into DETR format. 
+# Returns preprocessed image tensor & List of dictionaries (one per image)
+# KITTIDatasetDETR custom class: Bridges both. Uses parent to load raw data and processor to prep for model.
 
 import os
 import torchvision
