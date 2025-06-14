@@ -33,7 +33,7 @@ class Detr(pl.LightningModule):                                                 
         return self.model(pixel_values=pixel_values, pixel_mask=pixel_mask)                         # pixel value: tensor shape [B, 3, H, W], pixel mask: tensor shape [B, H, W]
 
     def common_step(self, batch, batch_idx):                                                        # Custom helper method, not overriding, not part of PyTorch Lightning’s API
-        pixel_values = batch["pixel_values"]                                                        # Comes from the  custom collate_fn()
+        pixel_values = batch["pixel_values"]                                                        # Comes from the 'custom collate_fn()'
         pixel_mask = batch["pixel_mask"]
         labels = [{k: v.to(self.device) for k, v in t.items()} for t in batch["labels"]]
         outputs = self.model(pixel_values=pixel_values, pixel_mask=pixel_mask, labels=labels)       # Calls DETR's forward() (inherited from HuggingFace)
@@ -43,7 +43,7 @@ class Detr(pl.LightningModule):                                                 
 
     def training_step(self, batch, batch_idx):                                                      # Overriding the train() method
         loss, loss_dict = self.common_step(batch, batch_idx)
-        self.log("training/loss", loss, on_step=True, on_epoch=True, prog_bar=True)                 # on_step: log every batch, on_epoch:  average over the epoch
+        self.log("training/loss", loss, on_step=True, on_epoch=True, prog_bar=True)                 # on_step: log every batch, on_epoch: average over the epoch
         for k, v in loss_dict.items():
             self.log(f"train_{k}", v.item())
         return loss                                                                                 # Lightning uses this to perform loss.backward() and optimizer step internally
@@ -59,7 +59,7 @@ class Detr(pl.LightningModule):                                                 
         param_dicts = [
             {
                 "params": [p for n, p in self.named_parameters() if "backbone" not in n and p.requires_grad] 
-            },                                                                                      # name (n), parameter (p), example:  ("backbone.body.layer1.0.conv1.weight", Parameter(...))
+            },                                                                                      # name (n), parameter (p). Example: ("backbone.body.layer1.0.conv1.weight", Parameter(...))
             {
                 "params": [p for n, p in self.named_parameters() if "backbone" in n and p.requires_grad],
                 "lr": self.lr_backbone,
