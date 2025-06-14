@@ -40,10 +40,10 @@ model.to(device)
 
 # Set optimizer
 params = [p for p in model.parameters() if p.requires_grad]
-optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)                           # Backbone (e.g., ResNet) is well-behaved with SGD, weight decay: L2 regularization (prevents overfitting)
+optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)                           # SGD: Backbone (e.g., ResNet) is well-behaved with SGD, weight decay: L2 regularization (prevents overfitting)
 
 # Learning rate scheduler
-lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1)                                            # Reduces the LR every few epochs no matter what, Epochs 0–9 -> LR = 0.005, Epochs 10–19 -> LR = 0.0005
+lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1)                                            # Reduces the LR every few epochs no matter what. Epochs 0–9 -> LR = 0.005, Epochs 10–19 -> LR = 0.0005
 
 # Training loop with best model saving
 best_val_loss = float('inf')
