@@ -3,8 +3,9 @@
 This folder contains dataset loader implementations tailored for Faster R-CNN and DETR training using the KITTI dataset.
 
 ---
+## Files
 
-## `kitti.py` – For Faster R-CNN
+### `kitti.py` – For Faster R-CNN
 
 ### Classes:
 - **`KITTIDataset`**: Loads full KITTI-style images and labels.
@@ -17,7 +18,7 @@ Used in: `faster-rcnn/train_faster_rcnn.py`
 
 ---
 
-## `kitti_detr.py` – For DETR
+### `kitti_detr.py` – For DETR
 
 ### Components:
 - **`KITTIDatasetDETR`**:
