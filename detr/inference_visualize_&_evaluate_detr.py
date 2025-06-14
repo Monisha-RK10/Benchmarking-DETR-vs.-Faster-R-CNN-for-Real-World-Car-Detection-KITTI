@@ -101,7 +101,7 @@ def prepare_for_coco_detection(predictions):
         scores = prediction["scores"].tolist()
         labels = prediction["labels"].tolist()
 
-        coco_results.extend(                                                                                        # Adds multiple items from another iterable
+        coco_results.extend(                                                                                        # Adds multiple items from another iterable. Example: If a = [1, 2], a.append([3, 4]) = [1, 2, [3, 4]], a.extend([3, 4]) = [1, 2, 3, 4]
             [
                 {
                     "image_id": original_id,
