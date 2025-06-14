@@ -1,13 +1,13 @@
-import os
-import json
-from shutil import copy2
-from PIL import Image
-
 # Step 1 for DETR: Generate json coco format.
 # Extract train & val images from train & val .txt.
 # Send them to the coco function to extract image, annotation, & categories in json format.
 # For annotation, parse the label to extract boxes (x, y, w, h), area, category, iscrowd to match with coco format.
 # Arrange the images & labels in the folder structure acceptable by DETR, i.e., folder with subfolders train & valid with corresonding images & json.
+
+import os
+import json
+from shutil import copy2
+from PIL import Image
 
 # Paths
 base_path = "/content/drive/MyDrive/DETR"
