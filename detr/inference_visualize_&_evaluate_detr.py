@@ -109,7 +109,7 @@ def prepare_for_coco_detection(predictions):
                     "bbox": box,
                     "score": scores[k],
                 }
-                for k, box in enumerate(boxes)
+                for k, box in enumerate(boxes)                                                                     # List comprehension
             ]
         )
     return coco_results                                                                                             # [ {"image_id": 42, "category_id": 2, "bbox": [10, 20, 100, 100], "score": 0.92}, {"image_id": 42, "category_id": 1, "bbox": [200, 150, 50, 30], "score": 0.87},...]
