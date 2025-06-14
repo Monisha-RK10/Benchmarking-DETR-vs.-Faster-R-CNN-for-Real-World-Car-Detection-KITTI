@@ -29,9 +29,9 @@ class KITTIDatasetDETR(torchvision.datasets.CocoDetection):                     
         return pixel_values, target
 
 # Step 3 for DETR: Update the collate function.
-# Recieve the batch, extract pixel values and labels.
-# Collect images in batch, find the largest H, W in the batch, pad the images in the batch to that size.
-# Creates a pixel mask: 1 = valid pixel, 0 = padding (used in attention masking inside DETR).
+# Recieve the batch. Extract pixel values and labels.
+# Collect images in batch. Find the largest H, W in the batch. Pad the images in the batch to that size.
+# Creates a pixel mask where 1 = valid pixel, 0 = padding (used in attention masking inside DETR).
 
 def collate_fn(batch, image_processor: DetrImageProcessor):
     
