@@ -1,4 +1,4 @@
-# Step 15 for DETR: Inference on all images from val dataset (visualize and save) using supervision.
+# Step 16 for DETR: Inference on all images from val dataset (visualize and save) using supervision.
 
 import os
 import cv2
