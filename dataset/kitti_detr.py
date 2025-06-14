@@ -1,7 +1,7 @@
 # Step 2 for DETR: To create train & val dataset.
 # CocoDetection (parent): Loads image file and raw annotations from JSON.
 # DetrImageProcessor: Preprocesses image (resizes, normalizes), converts boxes [cx, cy, w, h] and labels (integer tensors) into DETR format. 
-# Returns preprocessed image tensor & List of dictionaries (one per image)
+# Returns preprocessed image tensor & list of dictionaries (one per image).
 # KITTIDatasetDETR custom class: Bridges both. Uses parent to load raw data and processor to prep for model.
 
 import os
@@ -31,7 +31,7 @@ class KITTIDatasetDETR(torchvision.datasets.CocoDetection):                     
 # Step 3 for DETR: Update the collate function.
 # Recieve the batch. Extract pixel values and labels.
 # Collect images in batch. Find the largest H, W in the batch. Pad the images in the batch to that size.
-# Creates a pixel mask where 1 = valid pixel, 0 = padding (used in attention masking inside DETR).
+# Create a pixel mask where 1 = valid pixel, 0 = padding (used in attention masking inside DETR).
 
 def collate_fn(batch, image_processor: DetrImageProcessor):
     
