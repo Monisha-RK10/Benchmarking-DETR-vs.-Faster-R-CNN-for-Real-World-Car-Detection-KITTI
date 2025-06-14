@@ -136,8 +136,8 @@ for idx, batch in enumerate(tqdm(VAL_DATALOADER)):
 
     orig_target_sizes = torch.stack([target["orig_size"] for target in labels], dim=0)                              # dim=0 -> new rows (i.e., stack along batch dimension)
     results = image_processor.post_process_object_detection(outputs, target_sizes=orig_target_sizes)                # Converts raw outputs into boxes: [xmin, ymin, xmax, ymax], scores, labels. target_sizes help the processor scale predictions back to the original image size
-    predictions = {target['image_id'].item(): output for target, output in zip(labels, results)}                    # Create a dictionary to map each image_id to its predicitions. labels: GT metadata for each image in the batch, results: processed predictions (from post_process_object_detection), .item() converts it from a 0-D tensor to a Python int, e.g., 42
-    predictions = prepare_for_coco_detection(predictions)                                                           # Example: first iteration for output target = labels[0] (has image_id) and output = results[0] (has boxes, scores, labels)
+    predictions = {target['image_id'].item(): output for target, output in zip(labels, results)}                    # Create a dictionary to map each image_id to its predicitions. labels: GT metadata for each image in the batch. results: processed predictions (from post_process_object_detection). .item() converts it from a 0-D tensor to a Python int, e.g., 42
+    predictions = prepare_for_coco_detection(predictions)                                                           # Example: first iteration for target = labels[0] (has image_id) and output = results[0] (has boxes, scores, labels)
     evaluator.update(predictions)
 
 evaluator.synchronize_between_processes()
