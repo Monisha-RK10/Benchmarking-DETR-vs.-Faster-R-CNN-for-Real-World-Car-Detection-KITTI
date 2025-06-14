@@ -1,17 +1,17 @@
+# Step 7 for Faster R-CNN: Evaluate faster r-cnn trained model on val loader
+
 import torch
 from torch.utils.data import DataLoader
 from torchvision.models.detection.faster_rcnn import fasterrcnn_resnet50_fpn
 from engine import evaluate                                                       # Torchvision's custom training/eval loop. It expects each target to contain boxes, labels, 'image_id': as a torch.tensor([idx]) or int, so it can call .item() on it, area, iscrowd
 from coco_utils import convert_to_coco_api
-from coco_eval import CocoEvaluator # PyTorch’s built-in wrapper around COCOeval.
+from coco_eval import CocoEvaluator                                               # PyTorch’s built-in wrapper around COCOeval.
 import matplotlib.pyplot as plt
 import torchvision.transforms.functional as F
 import os
 
 # Dataset class and collate_fn imported from dataset/kitti.py
 from dataset.kitti import FilteredKITTIDataset, collate_fn
-
-# Step 7 for Faster R-CNN: Evaluate faster r-cnn trained model on val loader
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -23,7 +23,7 @@ val_dataset = FilteredKITTIDataset(
 val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, collate_fn=collate_fn)
 
 # Load the model
-model = fasterrcnn_resnet50_fpn(pretrained=False, num_classes=2)              # Background + car
+model = fasterrcnn_resnet50_fpn(pretrained=False, num_classes=2)                  # Background + car
 model.load_state_dict(torch.load("/content/fasterrcnn_best1.pth"))
 model.to(device)
 
@@ -35,12 +35,12 @@ save_dir = '/content/result_faster_rcnn_conf_0.9'
 os.makedirs(save_dir, exist_ok=True)
 
 def visualize_and_save(image, prediction, idx, threshold=0.9):
-    image_np = image.permute(1, 2, 0).cpu().numpy()                            # Reorder [C, H, W] -> [H, W, C] for visualization
+    image_np = image.permute(1, 2, 0).cpu().numpy()                               # Reorder [C, H, W] -> [H, W, C] for visualization
     plt.figure(figsize=(10,10))
     plt.imshow(image_np)
 
-    boxes = prediction['boxes'].cpu().numpy()                                  # Use .detach().cpu().numpy() when inside training loops, logging predictions, or visualizing intermediate layers.
-    scores = prediction['scores'].cpu().numpy()                                # Use .cpu().numpy() when doing inference only and are sure there's no autograd graph.
+    boxes = prediction['boxes'].cpu().numpy()                                     # Use .detach().cpu().numpy() when inside training loops, logging predictions, or visualizing intermediate layers.
+    scores = prediction['scores'].cpu().numpy()                                   # Use .cpu().numpy() when doing inference only and are sure there's no autograd graph.
     labels = prediction['labels'].cpu().numpy()
 
     for box, score, label in zip(boxes, scores, labels):
