@@ -14,7 +14,7 @@ This folder contains dataset loader implementations tailored for Faster R-CNN an
 ### Functions:
 - **`collate_fn`**: Handles batch collation with variable-length bounding boxes per image.
 
-Used in: `faster-rcnn/train_faster_rcnn.py`
+Used in: `faster_rcnn/train_faster_rcnn.py`
 
 ---
 
