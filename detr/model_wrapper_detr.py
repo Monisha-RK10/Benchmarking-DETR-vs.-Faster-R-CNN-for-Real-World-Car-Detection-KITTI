@@ -59,16 +59,16 @@ class Detr(pl.LightningModule):                                                 
         param_dicts = [
             {
                 "params": [p for n, p in self.named_parameters() if "backbone" not in n and p.requires_grad] 
-            },                                                                                      # name (n), parameter (p). Example: ("backbone.body.layer1.0.conv1.weight", Parameter(...))
+            },                                                                                    
             {
                 "params": [p for n, p in self.named_parameters() if "backbone" in n and p.requires_grad],
-                "lr": self.lr_backbone,
+                "lr": self.lr_backbone,                                                             # name (n), parameter (p). Example: ("backbone.body.layer1.0.conv1.weight", Parameter(...))
             },
         ]
         return torch.optim.AdamW(param_dicts, lr=self.lr, weight_decay=self.weight_decay)
 
     def train_dataloader(self):
-        return self._train_dataloader                                                               # Internal use only, exposes internal dataloader
+        return self._train_dataloader                                                               # Internal use only, exposes internal dataloader to the user
 
     def val_dataloader(self):
         return self._val_dataloader                                                                 # Internal use only
