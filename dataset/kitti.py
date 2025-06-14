@@ -17,7 +17,7 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')     # DEBUG (10), INFO (20), WARNING (30), ERROR (40), CRITICAL(50)
 
-class KITTIDataset(Dataset):                                                      # custom logic (No JSON, simple boxes only)
+class KITTIDataset(Dataset):                                                      # Custom logic (No JSON, simple boxes only)
     def __init__(self, image_dir, label_dir, transforms=None, verbose=True):
         self.image_dir = image_dir
         self.label_dir = label_dir
@@ -45,8 +45,8 @@ class KITTIDataset(Dataset):                                                    
             with open(label_path) as f:
                 for line in f:
                     fields = line.strip().split()
-                    if len(fields) < 8: # class, truncation, occlusion, alpha, x1, y1, x2, y2 (bbox)
-                        continue  # Skip malformed lines
+                    if len(fields) < 8:                                           # class, truncation, occlusion, alpha, x1, y1, x2, y2 (bbox)
+                        continue                                                  # Skip malformed lines
                     cls = fields[0].lower()
                     if cls == "dontcare":
                         continue
@@ -54,7 +54,7 @@ class KITTIDataset(Dataset):                                                    
                         continue
                     xmin, ymin, xmax, ymax = map(float, fields[4:8])
                     boxes.append([xmin, ymin, xmax, ymax])
-                    labels.append(1)  # class ID for 'Car'
+                    labels.append(1)                                              # class ID for 'Car'
 
         # Handle images with no valid boxes
         if len(boxes) == 0:
@@ -81,7 +81,7 @@ class KITTIDataset(Dataset):                                                    
 # Faster R-CNN expects lists of targets, not a stacked tensor (PyTorch defaut).
 
 def collate_fn(batch):
-    return tuple(zip(*batch))                                                      # tuple of images ->(img1, img2, ...),  tuple of targets -> (target1, target2, ...)
+    return tuple(zip(*batch))                                                     # tuple of images ->(img1, img2, ...),  tuple of targets -> (target1, target2, ...)
 
 # Step 4 for Faster R-CNN: Subclass FilteredKITTIDataset of KITTIDataset
 # This filters images based on image filenames in train.txt, val.txt (check input folder)
@@ -92,7 +92,7 @@ class FilteredKITTIDataset(KITTIDataset):
 
         # Load selected image filenames from train.txt or val.txt
         with open(image_list_file) as f:
-            selected = set(f.read().splitlines())                                  # Converts the list into a set (unordered collection with unique values), a  set is much faster than in a list (O(1) vs O(n))
+            selected = set(f.read().splitlines())                                 # Converts the list into a set (unordered collection with unique values), a  set is much faster than in a list (O(1) vs O(n))
 
         # Filter image_files based on the selection
         self.image_files = [f for f in self.image_files if f in selected]
