@@ -64,7 +64,7 @@ for image_id in tqdm(image_ids, desc="Processing Validation Set"):
         labels_pred = [f"{id2label[class_id]} {confidence:.2f}" for _, confidence, class_id, _ in detections_pred]  # Each detection is a tuple of (bbox, confidence, class_id, tracker_id)
         frame_pred = box_annotator.annotate(scene=image.copy(), detections=detections_pred, labels=labels_pred)     # Draws prediction boxes and class/confidence on a copy of the image
     else:
-        frame_pred = image.copy()  # No predictions
+        frame_pred = image.copy()                                                                                   # No predictions
 
     # Save both GT and predictions
     filename_base = os.path.splitext(os.path.basename(img_info['file_name']))[0]
@@ -82,7 +82,7 @@ with zipfile.ZipFile(ZIP_PATH, 'w', zipfile.ZIP_DEFLATED) as zipf:              
 print(f"\n Done! Results saved to: {SAVE_DIR}")
 print(f" Zipped file ready at: {ZIP_PATH}")
 
-# Step 16 for DETR: Evaluation via coco eval.
+# Step 17 for DETR: Evaluation via coco eval.
 
 # Convert xywh to xyxy format.
 def convert_to_xywh(boxes):                                                                                         # Boxes: tensor of shape [N, 4], each row is [xmin, ymin, xmax, ymax]
@@ -114,7 +114,7 @@ def prepare_for_coco_detection(predictions):
         )
     return coco_results                                                                                             # [ {"image_id": 42, "category_id": 2, "bbox": [10, 20, 100, 100], "score": 0.92}, {"image_id": 42, "category_id": 1, "bbox": [200, 150, 50, 30], "score": 0.87},...]
 
-# Step 17 for DETR: Extract validation metrics.
+# Step 18 for DETR: Extract validation metrics.
 # Model predictions (raw outputs -> cxcywh, normalized).
 # Post-processing to get final boxes (xyxy -> absolute pixel coords), scores, and labels.
 # Get results (boxes, labels, scores in real image size).
