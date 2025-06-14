@@ -79,6 +79,7 @@ class KITTIDataset(Dataset):                                                    
 
 # Step 3 for Faster R-CNN: Update collate function
 # Faster R-CNN expects lists of targets, not a stacked tensor (PyTorch defaut).
+# Each image has a different number of objects, the targets cannot be stacked into a single tensor.
 
 def collate_fn(batch):
     return tuple(zip(*batch))                                                     # tuple of images ->(img1, img2, ...),  tuple of targets -> (target1, target2, ...)
