@@ -30,7 +30,7 @@ val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, collate_fn=col
 
 # Load pre-trained Faster R-CNN
 model = fasterrcnn_resnet50_fpn(pretrained=True)                                                     # Finetuning (handles backbone, RPN, ROI Heads (except classifier head, replaced), optimizer, etc. internally)
-num_classes = 2  # 1 class ('Car') + background
+num_classes = 2                                                                                      # 1 class ('Car') + background
 in_features = model.roi_heads.box_predictor.cls_score.in_features
 model.roi_heads.box_predictor = torchvision.models.detection.faster_rcnn.FastRCNNPredictor(in_features, num_classes)
 
@@ -52,7 +52,7 @@ num_epochs = 40
 
 for epoch in range(num_epochs):
     # Training
-    model.train() # Input: images + targets, Output: loss_dict for torchvision
+    model.train()                                                                                    # Input: images + targets, Output: loss_dict for torchvision
     train_loss = 0.0
     # Initialize at start of epoch
     loss_comp_sum = {
