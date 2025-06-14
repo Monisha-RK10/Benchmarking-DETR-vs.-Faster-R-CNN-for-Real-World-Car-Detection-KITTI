@@ -1,12 +1,12 @@
-import os
-import torchvision
-import torch
-from transformers import DetrForObjectDetection, DetrImageProcessor
-
 # Step 2 for DETR: To create train & val dataset.
 # CocoDetection (parent): Loads image file and raw annotations from JSON.
 # DetrImageProcessor: Preprocesses image (resizes, normalizes), converts boxes [cx, cy, w, h] and labels (integer tensors) into DETR format. Returns preprocessed image tensor & List of dictionaries (one per image)
 # KITTIDatasetDETR custom class: Bridges both, uses parent to load raw data, processor to prep for model.
+
+import os
+import torchvision
+import torch
+from transformers import DetrForObjectDetection, DetrImageProcessor
 
 # Set paths
 ANNOTATION_FILE_NAME = "_annotations.coco.json"
@@ -40,7 +40,7 @@ def collate_fn(batch, image_processor: DetrImageProcessor):
     encoding = image_processor.pad(pixel_values, return_tensors="pt")
 
     return {
-        'pixel_values': encoding['pixel_values'],                                                        # Names must be exact, because DETR expects them this way internally 
+        'pixel_values': encoding['pixel_values'],                                                       # Names must be exact, because DETR expects them this way internally 
         'pixel_mask': encoding['pixel_mask'],
         'labels': labels
     }
