@@ -1,7 +1,4 @@
-# Step 5 for Faster R-CNN: Training
-# This code does the following:
-# Create dataset & dataloader for train & val
-# Load model, set number of classes, & change the layer accordingly
+# Step 5 for Faster R-CNN: Create dataset & dataloader for train & val
 
 import torch
 from torch.utils.data import DataLoader
@@ -43,10 +40,10 @@ model.to(device)
 
 # Set optimizer
 params = [p for p in model.parameters() if p.requires_grad]
-optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)                          # backbone (e.g., ResNet) is well-behaved with SGD, weight decay: L2 regularization (prevents overfitting)
+optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)                           # Backbone (e.g., ResNet) is well-behaved with SGD, weight decay: L2 regularization (prevents overfitting)
 
 # Learning rate scheduler
-lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1)                                           #  reduces the LR every few epochs no matter what, Epochs 0–9 -> LR = 0.005, Epochs 10–19 -> LR = 0.0005
+lr_scheduler = StepLR(optimizer, step_size=10, gamma=0.1)                                            # Reduces the LR every few epochs no matter what, Epochs 0–9 -> LR = 0.005, Epochs 10–19 -> LR = 0.0005
 
 # Training loop with best model saving
 best_val_loss = float('inf')
@@ -54,7 +51,7 @@ best_model_path = "fasterrcnn_best1.pth"
 num_epochs = 40
 
 for epoch in range(num_epochs):
-    # --- Training ---
+    # Training
     model.train() # Input: images + targets, Output: loss_dict for torchvision
     train_loss = 0.0
     # Initialize at start of epoch
@@ -73,7 +70,7 @@ for epoch in range(num_epochs):
         for k in loss_dict:
             loss_comp_sum[k] += loss_dict[k].item()
         #for k, v in loss_dict.items():
-          #  print(f"Epoch [{epoch+1}] - {k}: {v.item():.4f}")                                      # losses like loss_classifier + loss_box_reg + loss_objectness + loss_rpn_box_reg
+          #  print(f"Epoch [{epoch+1}] - {k}: {v.item():.4f}")                                       # Losses like loss_classifier + loss_box_reg + loss_objectness + loss_rpn_box_reg
 
         optimizer.zero_grad()
         losses.backward()
@@ -83,7 +80,7 @@ for epoch in range(num_epochs):
 
     avg_train_loss = train_loss / len(train_loader)
 
-    # --- Validation ---
+    # Validation
     # model.eval()                                                                                   # Input: images only (targets = None) Output: predictions 
     model.train()                                                                                    # NOTE: Needed to compute loss in torchvision models, switch back to train mode to compute loss
     val_loss = 0.0
@@ -95,7 +92,7 @@ for epoch in range(num_epochs):
             loss_dict = model(imgs, targets)
             losses = sum(loss for loss in loss_dict.values())
             val_loss += losses.item()
-    model.eval()                                                                                     # return to eval mode after validation for safety and good practice. Not the best practice, switch modes immediately to have less batchnorm, dropout influence
+    model.eval()                                                                                     # Return to eval mode after validation for safety and good practice. Not the best practice, switch modes immediately to have less batchnorm, dropout influence
 
     avg_val_loss = val_loss / len(val_loader)
 
@@ -117,4 +114,4 @@ for epoch in range(num_epochs):
     print(f"Epoch [{epoch+1}/{num_epochs}] - Train Loss: {avg_train_loss:.4f}, Val Loss: {avg_val_loss:.4f}")
 
     # Optional: save model each epoch
-    # torch.save(model.state_dict(), f'fasterrcnn_epoch{epoch+1}.pth')                                  # uncomment if you want per-epoch checkpoints
+    # torch.save(model.state_dict(), f'fasterrcnn_epoch{epoch+1}.pth')                               # Uncomment if you want per-epoch checkpoints
