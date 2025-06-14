@@ -32,7 +32,7 @@ VAL_DIRECTORY = os.path.join(DATASET_LOCATION, "valid")
 # Step 8 for DETR: Load processor
 # Image processor handles set of utilities for:
 # a) Preprocessing such as image resizing, normalization, padding, conversion to tensors, and
-# b) Post-processeing such as model outputs, turning raw logits into actual bounding boxes, labels, and scores.
+# b) Post-processing such as model outputs, turning raw logits into actual bounding boxes, labels, and scores.
 # Set conf & iou threshold for inference/post processing
 image_processor = DetrImageProcessor.from_pretrained(CHECKPOINT)
 
