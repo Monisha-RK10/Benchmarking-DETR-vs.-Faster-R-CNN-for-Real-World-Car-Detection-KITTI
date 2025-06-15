@@ -15,7 +15,7 @@ Wraps Hugging Face's DETR model into a `pl.LightningModule`. Includes:
 ### `train_detr.py`
 
 Script to train DETR on the custom KITTI car-only dataset.
-- Creating dataset, dataloader, logging TensorBoard
+- Creating dataset, dataloader using train & val annotation JSON, logging TensorBoard
 - Initializes PyTorch Lightning `Trainer` with logging and checkpointing
 - Supports resuming from checkpoints and modifying training hyperparameters
 
