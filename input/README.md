@@ -29,6 +29,7 @@ python input/split_kitti_dataset.py \
 - Generates COCO-format JSON annotation files from the KITTI dataset for DETR.
 - Requires KITTI labels and image splits from train.txt/val.txt.
 - Outputs annotations.json compatible with HuggingFace DETR.
+- Generates train_annotations.coco.json and val_annotations.coco.json.
 
 ### `train_annotations.coco.json & val_annotations.coco.json` - for DETR
 - COCO-format JSON annotation for training dataset
