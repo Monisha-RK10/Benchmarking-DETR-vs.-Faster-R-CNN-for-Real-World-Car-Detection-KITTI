@@ -48,6 +48,6 @@ For clarity and presentation purposes, the code has been split across files and 
 ## Author
 
 **Monisha**  
-Connect via [Medium](https://medium.com/@monishatemp20)  
+Connect via [Medium](https://medium.com/@monishatemp20)  [Linkedin](https://www.linkedin.com/in/monisha-rao-28129676/)
 
 ---
